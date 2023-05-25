@@ -127,25 +127,12 @@ else:
     st.write("The 'continent' column is not available in the DataFrame.")
 
 
-# Step 17: Plot top countries by CO2 emissions
-grouped_data = df_1990.groupby('country')['co2_per_capita'].sum()
-top_20_countries = grouped_data.nlargest(20)
-
 fig = go.Figure(data=[go.Bar(x=top_20_countries.index, y=top_20_countries.values)])
 fig.update_layout(
     xaxis_title='Country',
     yaxis_title='Per capita CO2 emissions in 1990',
     title='Per capita CO2 emissions by country in 1990',
     xaxis_tickangle=-45
-)
-st.plotly_chart(fig)
-
-# Step 18: Show relationship between CO2 per capita and GDP per capita in 1990
-fig = px.scatter(df_1990, x='gdp_per_capita', y='co2_per_capita', trendline='ols')
-fig.update_layout(
-    xaxis_title='GDP per capita',
-    yaxis_title='CO2 per capita',
-    title='Relationship between GDP per capita and CO2 per capita (1990)'
 )
 st.plotly_chart(fig)
 
