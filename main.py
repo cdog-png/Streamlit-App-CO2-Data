@@ -3,6 +3,8 @@ import pandas as pd
 import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
+import plotly.graph_objects as go
+import plotly.express as px
 import pandas as pd
 import numpy as np
 import pandas as pd
@@ -149,37 +151,41 @@ df_1990['continent'] = continent
 co2_by_continent = df_1990.groupby('continent')['share_global_oil_co2'].mean()
 
 # Step 16: Plot mean CO2 emissions by continent
-fig = plt.figure(figsize=(8, 6))
-co2_by_continent.plot(kind='bar', color='blue')
-plt.xlabel('Continent')
-plt.ylabel('Share of global oil CO2 emissions')
-plt.title('Mean share of global oil CO2 emissions by continent in 1990')
-st.pyplot(fig)
+fig = px.bar(co2_by_continent, x=co2_by_continent.index, y='co2_per_capita', color='continent')
+fig.update_layout(
+    xaxis_title='Continent',
+    yaxis_title='Share of global oil CO2 emissions',
+    title='Mean share of global oil CO2 emissions by continent in 1990'
+)
+st.plotly_chart(fig)
 
 # Step 17: Plot top countries by CO2 emissions
 grouped_data = df_1990.groupby('country')['co2_per_capita'].sum()
 top_20_countries = grouped_data.nlargest(20)
 
-fig = plt.figure(figsize=(15, 8))
-plt.bar(top_20_countries.index, top_20_countries.values, width=0.5)
-plt.xlabel('Country')
-plt.ylabel('Per capita CO2 emissions in 1990')
-plt.title('Per capita CO2 emissions by country in 1990')
-plt.xticks(rotation=50, fontsize=10)
-st.pyplot(fig)
+fig = go.Figure(data=[go.Bar(x=top_20_countries.index, y=top_20_countries.values)])
+fig.update_layout(
+    xaxis_title='Country',
+    yaxis_title='Per capita CO2 emissions in 1990',
+    title='Per capita CO2 emissions by country in 1990',
+    xaxis_tickangle=-45
+)
+st.plotly_chart(fig)
 
 # Step 18: Show relationship between CO2 per capita and GDP per capita in 1990
-fig = plt.figure(figsize=(8, 6))
-sns.regplot(x=df_1990['gdp_per_capita'], y=df_1990['co2_per_capita'], color='blue')
-plt.xlabel('GDP per capita')
-plt.ylabel('CO2 per capita')
-plt.title('Relationship between GDP per capita and CO2 per capita (1990)')
-st.pyplot(fig)
+fig = px.scatter(df_1990, x='gdp_per_capita', y='co2_per_capita', trendline='ols')
+fig.update_layout(
+    xaxis_title='GDP per capita',
+    yaxis_title='CO2 per capita',
+    title='Relationship between GDP per capita and CO2 per capita (1990)'
+)
+st.plotly_chart(fig)
 
 # Step 19: Show relationship between CO2 per capita and GDP per capita in 2018
-fig = plt.figure(figsize=(8, 6))
-sns.regplot(x=df_2018['gdp_per_capita'], y=df_2018['co2_per_capita'], color='blue')
-plt.xlabel('GDP per capita')
-plt.ylabel('CO2 per capita')
-plt.title('Relationship between GDP per capita and CO2 per capita (2018)')
-st.pyplot(fig)
+fig = px.scatter(df_2018, x='gdp_per_capita', y='co2_per_capita', trendline='ols')
+fig.update_layout(
+    xaxis_title='GDP per capita',
+    yaxis_title='CO2 per capita',
+    title='Relationship between GDP per capita and CO2 per capita (2018)'
+)
+st.plotly_chart(fig)
