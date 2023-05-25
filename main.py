@@ -105,6 +105,8 @@ ax.legend(prop={'size': 7})
 # Show the plot
 st.pyplot(fig)
 # CO2 PER CAPITA AND GDP PER CAPITA RELATIONSHIP 1990
+mask = df['year'] == 1990
+df_1990 = df[mask]
 # Create new figure
 fig = plt.figure(figsize=(8, 6))
 # Set up line chart
