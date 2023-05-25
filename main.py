@@ -251,7 +251,7 @@ columns = ['co2_per_gdp', 'oil_co2_per_capita', 'cement_co2_per_capita', 'gas_co
            'co2_including_luc_per_capita', 'co2_per_capita']
 
 fig = px.scatter_matrix(df_normalized[columns], title="Pairplot", dimensions=columns)
-fig.update_layout(width=900, height=700)  # Adjust the width and height as per your preference
+fig.update_layout(width=900, height=900)  # Adjust the width and height as per your preference
 
 st.plotly_chart(fig)
 
