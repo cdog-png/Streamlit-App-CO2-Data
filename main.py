@@ -233,9 +233,9 @@ vif["VIF"] = [variance_inflation_factor(X_train_with_constant.values, i) for i i
 st.write("Variance Inflation Factor (VIF):")
 st.write(vif)
 
+# Generate the probability plot data
 sorted_residuals = np.sort(residuals_norm)
-quantiles = np.linspace(0, 1, len(sorted_residuals))
-theoretical_quantiles = stats.norm.ppf(quantiles)
+theoretical_quantiles = np.quantile(residuals_norm, np.linspace(0, 1, len(sorted_residuals)))
 
 # Create the plotly figure
 fig = go.Figure(data=go.Scatter(x=theoretical_quantiles, y=sorted_residuals, mode='markers'))
