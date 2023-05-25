@@ -151,18 +151,31 @@ fig.update_layout(
 )
 st.plotly_chart(fig)
 
-# Filter the dataframe for the specified countries and years 2018 and 1990
 filtered_df = df[(df['country'].isin(countries)) & (df['year'].isin([2018, 1990]))]
 
-# Pivot the dataframe to have years as columns and countries as index
-pivot_df = filtered_df.pivot(index='country', columns='year', values='co2_per_capita')
+# Create separate traces for each year
+traces = []
+for year in [2018, 1990]:
+    trace = go.Scatter(
+        x=filtered_df[filtered_df['year'] == year]['country'],
+        y=filtered_df[filtered_df['year'] == year]['co2_per_capita'],
+        mode='lines',
+        name=str(year)
+    )
+    traces.append(trace)
 
-# Create an interactive table using pandas DataFrame.style
-styled_table = pivot_df.style.highlight_max(axis=1).format("{:.2f}")
+# Create the layout for the graph
+layout = go.Layout(
+    title='CO2 Emissions per Capita (2018 vs 1990)',
+    xaxis=dict(title='Country'),
+    yaxis=dict(title='CO2 per Capita')
+)
 
-# Display the table
-st.write("CO2 Emissions per Capita (2018 vs 1990):")
-st.dataframe(styled_table)
+# Create the figure
+fig = go.Figure(data=traces, layout=layout)
+
+# Display the graph
+st.plotly_chart(fig)
 
 # Drop unnecessary columns
 df = df.drop(['country', 'year', 'iso_code'], axis=1)
