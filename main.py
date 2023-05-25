@@ -29,12 +29,12 @@ st.title("GLOBAL CO2 EMISSION DATA ANALYSIS")
 st.subheader("by Caspar Ibel and Luis Manosas")
 
 df = pd.read_csv('owid-co2-data.csv')
-st.subheader("Owid CO2 Initial Dataset")
+st.title("Owid CO2 Initial Dataset")
 st.write(df.head(20))
 
 # Step 3: Drop rows with null values and display info
 df = df.dropna(how='any', axis=0)
-st.subheader("DataFrame with dropped null values:")
+st.title("DataFrame with dropped null values:")
 st.write(df.head(20))
 
 # Step 9: Plot CO2 per capita emissions
@@ -57,7 +57,7 @@ chart.update_layout(
 )
 
 # Display the chart
-st.subheader("CO2 per capita Emissions")
+st.title("CO2 per capita Emissions")
 st.plotly_chart(chart)
 
 # Step 10: Plot top countries
@@ -89,7 +89,7 @@ fig.update_layout(
 )
 
 # Display the graph
-st.subheader("Relationship between GDP per capita and CO2 emissions (2018)")
+st.title("Relationship between GDP per capita and CO2 emissions (2018)")
 st.plotly_chart(fig)
 
 # Step 13: Print unique countries and create continental lists
@@ -125,7 +125,7 @@ continents = {
 }
 
 # Step 14: Create continent select box and filter DataFrame
-st.subheader("CO2 per capita by continent")
+st.title("CO2 per capita by continent")
 continent = st.selectbox('Select a continent', list(continents.keys()))
 continent_countries = continents[continent]
 filt_df = df[df['country'].isin(continent_countries)]
@@ -147,7 +147,7 @@ fig.update_layout(
     xaxis_title='GDP per capita',
     yaxis_title='CO2 per capita',
 )
-st.subheader("Relationship CO2 per capita and GDP per capita in 2018")
+st.title("Relationship CO2 per capita and GDP per capita in 2018")
 st.plotly_chart(fig)
 
 filtered_df = df[(df['country'].isin(countries)) & (df['year'].isin([2018, 1990]))]
@@ -173,7 +173,7 @@ layout = go.Layout(
 fig = go.Figure(data=traces, layout=layout)
 
 # Display the graph
-st.subheader("CO2 per capita 1990 vs 2018")
+st.title("CO2 per capita 1990 vs 2018")
 st.plotly_chart(fig)
 
 # Drop unnecessary columns
@@ -209,7 +209,7 @@ st.write(df_normalized.describe())
 correlation_list = df_normalized.corrwith(df_normalized['co2_per_capita']).drop('co2_per_capita').sort_values(ascending=True)
 
 # Display correlation list
-st.header("Correlation List CO2 per capita")
+st.title("Correlation List CO2 per capita")
 st.write(correlation_list)
 
 # Perform linear regression with significant features
