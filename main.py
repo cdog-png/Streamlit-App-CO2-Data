@@ -23,9 +23,7 @@ st.write(df.head())
 df_float = df.drop(['country', 'year', 'iso_code'], axis=1)
 
 x = df_float.iloc[:, :]
-# Display VIF
-vif_result = calc_VIF(x)
-st.write(vif_result)
+
 # Evolution CO2 emissions aggregate (1950 - 2018)
 countries = ['China', 'United States', 'United Kingdom', 'Germany', 'Spain', 'India', 'Brazil', 'Russia', 'France', 'Japan', 'South Korea']
 # Filter the dataframe for the specified countries and years between 1950 and 2018
