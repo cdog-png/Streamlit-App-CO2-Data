@@ -49,14 +49,18 @@ x = df_float.iloc[:,:]
 # Display VIF
 calc_VIF(x)
 
-# Drop vars with high VIF (>5) which are not essential to the model 
-df = df.drop(['cement_co2', 'co2','co2_including_luc', 'cumulative_cement_co2', 'cumulative_co2', 
-              'cumulative_co2_including_luc', 'cumulative_coal_co2', 'cumulative_luc_co2', 'cumulative_oil_co2', 
-              'land_use_change_co2', 'share_global_co2', 'share_global_co2_including_luc', 'share_global_cumulative_co2', 
-              'share_global_cumulative_co2_including_luc', 'share_global_cumulative_coal_co2', 
-              'share_global_cumulative_gas_co2', 'share_global_cumulative_luc_co2', 'share_global_cumulative_oil_co2'], 
-               axis = 1)
-df.info()
+# Drop nonfloat variables
+df_float = df.drop(['country', 'year', 'iso_code'], axis=1)
+# Create function called to compute VIF
+def calc_VIF(x):
+    vif = pd.DataFrame()
+    vif['variables'] = x.columns
+    vif["VIF"] = [variance_inflation_factor(x.values, i) for i in range(x.shape[1])]
+    return vif
+x = df_float.iloc[:, :]
+# Display VIF
+vif_result = calc_VIF(x)
+st.write(vif_result)
 
 # Evolution CO2 emissions aggregate (1950 - 2018)
 countries = ['China', 'United States', 'United Kingdom', 'Germany', 'Spain', 'India', 'Brazil', 'Russia', 'France', 'Japan', 'South Korea']
