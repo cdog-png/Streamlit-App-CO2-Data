@@ -117,7 +117,6 @@ continents = {
                       'Peru', 'Suriname', 'Uruguay', 'Venezuela']
 }
 
-# Step 14: Create continent select box and filter DataFrame
 st.title("CO2 per capita by continent")
 continent = st.selectbox('Select a continent', list(continents.keys()))
 continent_countries = continents[continent]
@@ -125,13 +124,11 @@ filt_df = df[df['country'].isin(continent_countries)]
 
 # Create a Streamlit line chart for CO2 per capita emissions by continent
 pivot_df = filt_df.pivot(index='year', columns='country', values='co2_per_capita')
-st.line_chart(pivot_df, use_container_width=True)
 
-asia = continents['asia']
-europe = continents['europe']
-north_america = continents['north_america']
-south_america = continents['south_america']
-oceania = continents['oceania']
+# Adjust x-axis labels to display year numbers
+pivot_df.index = pivot_df.index.astype(str)
+
+st.line_chart(pivot_df, use_container_width=True)
 
 # Step 19: Show relationship between CO2 per capita and GDP per capita in 2018
 fig = px.scatter(df_2018, x='gdp_per_capita', y='co2_per_capita', trendline='ols')
