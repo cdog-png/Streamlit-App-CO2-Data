@@ -85,12 +85,12 @@ fig = go.Figure(data=go.Scatter(
 ))
 
 fig.update_layout(
-    title='Relationship between GDP per capita and CO2 per unit of energy (2018)',
     xaxis=dict(title='GDP per capita'),
     yaxis=dict(title='CO2 per unit energy')
 )
 
 # Display the graph
+st.title("Relationship between GDP per capita and CO2 emissions (2018)")
 st.plotly_chart(fig)
 
 # Step 13: Print unique countries and create continental lists
