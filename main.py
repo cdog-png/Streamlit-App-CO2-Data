@@ -105,15 +105,17 @@ st.write("DataFrame for 2018 with continent column:")
 st.write(df_2018)
 
 # Step 15: Compute mean share of global oil CO2 emissions by continent (2018)
-co2_by_continent = df_2018.groupby('continent')['share_global_oil_co2'].mean()
-
-# Create bar plot
-fig = plt.figure(figsize=(8, 6))
-co2_by_continent.plot(kind='bar', color='blue')
-plt.xlabel('Continent')
-plt.ylabel('Share of global oil CO2 emissions')
-plt.title('Mean share of global oil CO2 emissions by continent in 2018')
-st.image(fig)
+if 'continent' in df_2018.columns:
+    co2_by_continent = df_2018.groupby('continent')['share_global_oil_co2'].mean()
+    # Create bar plot
+    fig = plt.figure(figsize=(8, 6))
+    co2_by_continent.plot(kind='bar', color='blue')
+    plt.xlabel('Continent')
+    plt.ylabel('Share of global oil CO2 emissions')
+    plt.title('Mean share of global oil CO2 emissions by continent in 2018')
+    st.image(fig)
+else:
+    st.write("The 'continent' column is not available in the DataFrame.")
 
 # Step 16: Replicate graph for 1990
 mask = df['year'] == 1990
