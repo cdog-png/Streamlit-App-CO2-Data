@@ -62,12 +62,8 @@ plt.xlabel('GDP per capita')
 plt.ylabel('CO2 per unit energy')
 plt.title('Relationship between GDP per capita and CO2 per unit of energy (2018)')
 
-# Convert Matplotlib figure to PIL image
-canvas = FigureCanvas(fig)
-image = Image.frombytes('RGB', canvas.get_width_height(), canvas.tostring_rgb())
-
-# Display the image using Streamlit
-st.image(image)
+# Display the plot using Streamlit
+st.pyplot(fig)
 
 # Step 13: Print unique countries and create continental lists
 unique_countries = df['country'].unique()
