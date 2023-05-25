@@ -91,11 +91,6 @@ continents = {
                       'Peru', 'Suriname', 'Uruguay', 'Venezuela']
 }
 
-# Print unique countries
-st.write("Unique countries:")
-for country in unique_countries:
-    st.write(country)
-
 # Step 14: Create continent select box and filter DataFrame
 continent = st.selectbox('Select a continent', list(continents.keys()))
 continent_countries = continents[continent]
