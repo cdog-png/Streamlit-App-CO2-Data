@@ -234,7 +234,9 @@ st.write(vif)
 
 # Probability plot of standardized residuals
 residuals_norm = (residuals - residuals.mean()) / residuals.std()
-fig = px.probability_plot(residuals_norm, title="Probability Plot of Residuals")
+fig = go.Figure()
+stats.probplot(residuals_norm, plot=fig)
+fig.update_layout(title="Probability Plot of Residuals")
 st.plotly_chart(fig)
 
 # Pairplot of selected columns
