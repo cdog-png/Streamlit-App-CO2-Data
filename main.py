@@ -29,16 +29,15 @@ st.title("GLOBAL CO2 EMISSION DATA ANALYSIS")
 st.subheader("by Caspar Ibel and Luis Manosas")
 
 df = pd.read_csv('owid-co2-data.csv')
-st.header("Owid CO2 Initial Dataset")
+st.subheader("Owid CO2 Initial Dataset")
 st.write(df.head(20))
 
 # Step 3: Drop rows with null values and display info
 df = df.dropna(how='any', axis=0)
-st.write("DataFrame with dropped null values:")
+st.subheader("DataFrame with dropped null values:")
 st.write(df.head(20))
 
 # Step 9: Plot CO2 per capita emissions
-st.header("CO2 per capita Emission 1950 - 2018")
 countries = ['China', 'United States', 'United Kingdom', 'Germany', 'Spain', 'India', 'Brazil', 'Russia', 'France', 'Japan', 'South Korea']
 filtered_df = df[(df['country'].isin(countries)) & (df['year'].between(1950, 2018))]
 pivot_df = filtered_df.pivot(index='year', columns='country', values='co2_per_capita')
@@ -126,13 +125,13 @@ continents = {
 }
 
 # Step 14: Create continent select box and filter DataFrame
+st.subheader("CO2 per capita by continent")
 continent = st.selectbox('Select a continent', list(continents.keys()))
 continent_countries = continents[continent]
 filt_df = df[df['country'].isin(continent_countries)]
 
 # Create a Streamlit line chart for CO2 per capita emissions by continent
 pivot_df = filt_df.pivot(index='year', columns='country', values='co2_per_capita')
-st.subheader("CO2 per capita by continent")
 st.line_chart(pivot_df, use_container_width=True)
 
 asia = continents['asia']
@@ -147,8 +146,8 @@ fig = px.scatter(df_2018, x='gdp_per_capita', y='co2_per_capita', trendline='ols
 fig.update_layout(
     xaxis_title='GDP per capita',
     yaxis_title='CO2 per capita',
-    title='Relationship between GDP per capita and CO2 per capita (2018)'
 )
+st.subheader("Relationship CO2 per capita and GDP per capita in 2018")
 st.plotly_chart(fig)
 
 filtered_df = df[(df['country'].isin(countries)) & (df['year'].isin([2018, 1990]))]
@@ -166,7 +165,6 @@ for year in [2018, 1990]:
 
 # Create the layout for the graph
 layout = go.Layout(
-    title='CO2 Emissions per Capita (2018 vs 1990)',
     xaxis=dict(title='Country'),
     yaxis=dict(title='CO2 per Capita')
 )
@@ -175,6 +173,7 @@ layout = go.Layout(
 fig = go.Figure(data=traces, layout=layout)
 
 # Display the graph
+st.subheader("CO2 per capita 1990 vs 2018")
 st.plotly_chart(fig)
 
 # Drop unnecessary columns
@@ -189,10 +188,6 @@ IQR = Q3 - Q1
 lower_bound = Q1 - 1.5 * IQR
 upper_bound = Q3 + 1.5 * IQR
 df_cleaned = df.mask((df < lower_bound) | (df > upper_bound), (Q1 + Q3) / 2, axis=1)
-
-# Display cleaned DataFrame information
-st.write("Cleaned DataFrame:")
-st.write(df_cleaned.info())
 
 # Standardize data
 scaler = StandardScaler()
@@ -244,13 +239,15 @@ residuals = pred_train - y_train
 # Scatter plot of predicted vs actual values (test set)
 fig = go.Figure(data=go.Scatter(x=pred_test, y=y_test, mode='markers'))
 fig.add_trace(go.Scatter(x=[y_test.min(), y_test.max()], y=[y_test.min(), y_test.max()], mode='lines', name='Ideal Line'))
-fig.update_layout(title="Scatter Plot (Test Set)", xaxis_title="Predicted Values", yaxis_title="Actual Values")
+fig.update_layout(xaxis_title="Predicted Values", yaxis_title="Actual Values")
+st.subheader("Predicted vs Actual Values")
 st.plotly_chart(fig)
 
 # Scatter plot of residuals vs actual values (train set)
 fig = go.Figure(data=go.Scatter(x=y_train, y=residuals, mode='markers', marker=dict(size=7)))
 fig.add_shape(type="line", x0=y_train.min(), y0=0, x1=y_train.max(), y1=0, line=dict(color='#0a5798', width=3))
-fig.update_layout(title="Scatter Plot (Train Set)", xaxis_title="Actual Values", yaxis_title="Residuals")
+fig.update_layout(xaxis_title="Actual Values", yaxis_title="Residuals")
+st.subheader("Residuals vs Actual Values")
 st.plotly_chart(fig)
 
 # VIF (Variance Inflation Factor)
