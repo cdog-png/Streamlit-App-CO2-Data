@@ -151,6 +151,41 @@ fig.update_layout(
 )
 st.plotly_chart(fig)
 
+countries = ['China', 'United States', 'United Kingdom', 'Germany', 'Spain', 'India', 'Brazil', 'Russia', 'France', 'Japan', 'South Korea']
+filtered_df = df[(df['country'].isin(countries)) & (df['year'].between(1950, 2018))]
+pivot_df = filtered_df.pivot(index='year', columns='country', values='co2_per_capita')
+
+fig, ax = plt.subplots(figsize=(12, 8))
+pivot_df.plot(ax=ax)
+ax.grid(True, which='both', linestyle='-', linewidth=0.5)
+
+plt.title('CO2 Per Capita Emissions (1950-2018)')
+plt.xlabel('Year')
+plt.ylabel('CO2 Per Capita Emissions')
+
+for country in countries:
+    last_value = pivot_df[country].iloc[-1]
+    label = country[:3]
+    x_pos = pivot_df.index[-1]
+    y_pos = last_value
+
+    if country == 'United Kingdom':
+        y_pos -= 0.5
+    elif country == 'South Korea':
+        x_pos -= 2
+        y_pos += 0.3
+    elif country == 'France':
+        x_pos -= 2
+        y_pos -= 0.2
+    elif country == 'Germany':
+        x_pos -= 2
+        y_pos -= 0.2
+
+    plt.text(x_pos, y_pos, label, fontsize=8)
+
+ax.legend(prop={'size': 7})
+st.pyplot(fig)
+
 # Drop unnecessary columns
 df = df.drop(['country', 'year', 'iso_code'], axis=1)
 
