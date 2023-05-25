@@ -62,6 +62,14 @@ x = df_float.iloc[:, :]
 vif_result = calc_VIF(x)
 st.write(vif_result)
 
+# Keep only 2018 observations in a new df
+mask = df['year'] == 2018
+df_2018 = df[mask]
+
+# Keep only 1990 observations in a new df
+mask = df['year'] == 1990
+df_1990 = df[mask]
+
 # Evolution CO2 emissions aggregate (1950 - 2018)
 countries = ['China', 'United States', 'United Kingdom', 'Germany', 'Spain', 'India', 'Brazil', 'Russia', 'France', 'Japan', 'South Korea']
 # Filter the dataframe for the specified countries and years between 1950 and 2018
