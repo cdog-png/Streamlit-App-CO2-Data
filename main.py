@@ -48,7 +48,10 @@ st.bar_chart(top_20_countries, use_container_width=True)
 # Step 11: Create GDP per capita variable
 df['gdp_per_capita'] = df['gdp'] / df['population']
 
-# Step 12: Plot relationship between GDP per capita and CO2 per unit of energy
+# Step 12: Create df_2018 DataFrame for 2018 data
+df_2018 = df[df['year'] == 2018]
+
+# Plot relationship between GDP per capita and CO2 per unit of energy
 fig = plt.figure(figsize=(8, 6))
 sns.regplot(x=df_2018['gdp_per_capita'], y=df_2018['co2_per_unit_energy'], color='blue')
 plt.xlabel('GDP per capita')
