@@ -5,6 +5,7 @@ matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 import plotly.graph_objects as go
 import plotly.express as px
+import plotly.figure_factory as ff
 import pandas as pd
 import numpy as np
 import pandas as pd
@@ -232,24 +233,25 @@ vif["VIF"] = [variance_inflation_factor(X_train_with_constant.values, i) for i i
 st.write("Variance Inflation Factor (VIF):")
 st.write(vif)
 
-fig = go.Figure()
+qqplot_data = stats.probplot(residuals_norm, dist="norm", fit=False)
 
-# Calculate quantiles
-quantiles = (np.arange(len(residuals_norm)) + 0.5) / len(residuals_norm)
-standard_normal_quantiles = stats.norm.ppf(quantiles)
+# Create the plotly figure
+fig = ff.create_2d_density(
+    x=qqplot_data[0][0],
+    y=qqplot_data[0][1],
+    colorscale="Viridis",
+    hist_color="rgba(0, 0, 0, 0.6)",
+    point_size=2,
+)
 
-# Sort residuals and plot
-residuals_sorted = np.sort(residuals_norm)
-fig.add_trace(go.Scatter(x=standard_normal_quantiles, y=residuals_sorted, mode='markers'))
+# Update the layout
+fig.update_layout(
+    title="Probability Plot of Residuals",
+    xaxis_title="Theoretical Quantiles",
+    yaxis_title="Sample Quantiles",
+)
 
-# Add a line indicating perfect normal distribution
-fig.add_trace(go.Scatter(x=[-3, 3], y=[-3, 3], mode='lines', name='Perfectly Normal'))
-
-# Set axis labels and title
-fig.update_layout(xaxis_title='Theoretical Quantiles', yaxis_title='Sample Quantiles',
-                  title='Probability Plot of Residuals')
-
-# Show the interactive plot
+# Display the figure
 st.plotly_chart(fig)
 
 # Pairplot of selected columns
