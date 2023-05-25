@@ -47,17 +47,15 @@ pivot_df = filtered_df.pivot(index='year', columns='country', values='co2_per_ca
 chart = st.line_chart(pivot_df, use_container_width=True)
 
 # Add axis labels
-chart.set_axis_labels('Year', 'CO2 per capita Emissions')
-
-# Show the chart
-st.pyplot(chart)
+st.xlabel('Year')
+st.ylabel('CO2 per capita Emissions')
 
 # Step 10: Plot top countries
 grouped_data = df.groupby('country')['co2_per_capita'].sum()
 top_20_countries = grouped_data.nlargest(20)
 
 # Create a Streamlit bar chart for top countries
-st.header("Top20 Countries by CO2 per capita")
+st.header("Top 20 Countries by CO2 per capita")
 st.bar_chart(top_20_countries, use_container_width=True)
 
 # Step 11: Create GDP per capita variable
@@ -71,8 +69,8 @@ fig = px.scatter(df_2018, x='gdp_per_capita', y='co2_per_unit_energy', trendline
 # Update the layout
 fig.update_layout(
     title='Relationship between GDP per capita and CO2 per unit of energy (2018)',
-    xaxis_title='GDP per capita',
-    yaxis_title='CO2 per unit energy'
+    xaxis=dict(title='GDP per capita'),
+    yaxis=dict(title='CO2 per unit energy')
 )
 
 # Display the graph
