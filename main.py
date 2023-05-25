@@ -21,12 +21,7 @@ st.write(df.head())
 
 # Drop nonfloat variables
 df_float = df.drop(['country', 'year', 'iso_code'], axis=1)
-# Create function called to compute VIF
-def calc_VIF(x):
-    vif = pd.DataFrame()
-    vif['variables'] = x.columns
-    vif["VIF"] = [variance_inflation_factor(x.values, i) for i in range(x.shape[1])]
-    return vif
+
 x = df_float.iloc[:, :]
 # Display VIF
 vif_result = calc_VIF(x)
