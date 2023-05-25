@@ -30,9 +30,9 @@ st.write(df.head())
 
 # Step 4: Print unique countries
 unique_countries = df['country'].unique()
-st.write("Unique countries:")
+print("Unique countries:")
 for country in unique_countries:
-    st.write(country)
+print(country)
 
 # Step 9: Plot CO2 per capita emissions
 countries = ['China', 'United States', 'United Kingdom', 'Germany', 'Spain', 'India', 'Brazil', 'Russia', 'France', 'Japan', 'South Korea']
