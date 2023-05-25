@@ -126,38 +126,6 @@ if 'continent' in df_2018.columns:
 else:
     st.write("The 'continent' column is not available in the DataFrame.")
 
-# Step 16: Replicate graph for 1990
-mask = df['year'] == 1990
-df_1990 = df[mask]
-
-# Create new continent column
-continent = []
-for country in df_1990['country']:
-    if country in asia:
-        continent.append('Asia')
-    elif country in europe:
-        continent.append('Europe')
-    elif country in north_america:
-        continent.append('North America')
-    elif country in south_america:
-        continent.append('South America')
-    elif country in africa:
-        continent.append('Africa')
-    else:
-        continent.append('Oceania')
-df_1990['continent'] = continent
-
-# Compute mean share of global oil CO2 emissions by continent
-co2_by_continent = df_1990.groupby('continent')['share_global_oil_co2'].mean()
-
-# Step 16: Plot mean CO2 emissions by continent
-fig = px.bar(co2_by_continent, x=co2_by_continent.index, y='co2_per_capita', color='continent')
-fig.update_layout(
-    xaxis_title='Continent',
-    yaxis_title='Share of global oil CO2 emissions',
-    title='Mean share of global oil CO2 emissions by continent in 1990'
-)
-st.plotly_chart(fig)
 
 # Step 17: Plot top countries by CO2 emissions
 grouped_data = df_1990.groupby('country')['co2_per_capita'].sum()
