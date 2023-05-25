@@ -91,9 +91,6 @@ continents = {
                       'Peru', 'Suriname', 'Uruguay', 'Venezuela']
 }
 
-africa_df = filt_df[filt_df['country'].isin(continents['africa'])]
-st.write(africa_df)
-
 # Step 14: Create continent select box and filter DataFrame
 continent = st.selectbox('Select a continent', list(continents.keys()))
 continent_countries = continents[continent]
