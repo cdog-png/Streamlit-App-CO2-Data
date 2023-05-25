@@ -94,10 +94,10 @@ continents = {
 # Step 14: Create continent select box and filter DataFrame
 continent = st.selectbox('Select a continent', list(continents.keys()))
 continent_countries = continents[continent]
-filtered_df = df[df['country'].isin(continent_countries)]
+filt_df = df[df['country'].isin(continent_countries)]
 
 # Create a Streamlit line chart for CO2 per capita emissions by continent
-pivot_df = filtered_df.pivot(index='year', columns='country', values='co2_per_capita')
+pivot_df = filt_df.pivot(index='year', columns='country', values='co2_per_capita')
 st.line_chart(pivot_df, use_container_width=True)
 
 # Display the modified DataFrame
