@@ -19,6 +19,7 @@ import matplotlib.pyplot as plt
 import scipy.stats as stats
 import seaborn as sns
 from statsmodels.stats.outliers_influence import variance_inflation_factor
+import statsmodels.api as sm
 from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas  # Added FigureCanvas import
 
 st.title("GLOBAL CO2 EMISSION DATA ANALYSIS")
