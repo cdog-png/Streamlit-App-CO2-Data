@@ -65,10 +65,12 @@ st.write(vif_result)
 # Keep only 2018 observations in a new df
 mask = df['year'] == 2018
 df_2018 = df[mask]
+df_2018.head()
 
 # Keep only 1990 observations in a new df
 mask = df['year'] == 1990
 df_1990 = df[mask]
+df_1990.head()
 
 # Evolution CO2 emissions aggregate (1950 - 2018)
 countries = ['China', 'United States', 'United Kingdom', 'Germany', 'Spain', 'India', 'Brazil', 'Russia', 'France', 'Japan', 'South Korea']
