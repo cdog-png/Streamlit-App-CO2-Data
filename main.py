@@ -233,22 +233,18 @@ vif["VIF"] = [variance_inflation_factor(X_train_with_constant.values, i) for i i
 st.write("Variance Inflation Factor (VIF):")
 st.write(vif)
 
-qqplot_data = stats.probplot(residuals_norm, dist="norm", fit=False)
+sorted_residuals = np.sort(residuals_norm)
+quantiles = np.linspace(0, 1, len(sorted_residuals))
+theoretical_quantiles = stats.norm.ppf(quantiles)
 
 # Create the plotly figure
-fig = ff.create_2d_density(
-    x=qqplot_data[0][0],
-    y=qqplot_data[0][1],
-    colorscale="Viridis",
-    hist_color="rgba(0, 0, 0, 0.6)",
-    point_size=2,
-)
+fig = go.Figure(data=go.Scatter(x=theoretical_quantiles, y=sorted_residuals, mode='markers'))
 
 # Update the layout
 fig.update_layout(
     title="Probability Plot of Residuals",
     xaxis_title="Theoretical Quantiles",
-    yaxis_title="Sample Quantiles",
+    yaxis_title="Standardized Residuals",
 )
 
 # Display the figure
