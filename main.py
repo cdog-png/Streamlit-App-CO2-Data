@@ -151,44 +151,18 @@ fig.update_layout(
 )
 st.plotly_chart(fig)
 
-countries = ['China', 'United States', 'United Kingdom', 'Germany', 'Spain', 'India', 'Brazil', 'Russia', 'France', 'Japan', 'South Korea']
+# Filter the dataframe for the specified countries and years 2018 and 1990
+filtered_df = df[(df['country'].isin(countries)) & (df['year'].isin([2018, 1990]))]
 
-filtered_df = df[(df['Country Name'].isin(countries)) & (df['Year'].between(1950, 2018))]
-pivot_df = filtered_df.pivot(index='Year', columns='Country Name', values='CO2 per capita')
+# Pivot the dataframe to have years as columns and countries as index
+pivot_df = filtered_df.pivot(index='country', columns='year', values='co2_per_capita')
 
-fig, ax = plt.subplots(figsize=(12, 8))
-pivot_df.plot(ax=ax)
-ax.grid(True, which='both', linestyle='-', linewidth=0.5)
+# Create an interactive table using pandas DataFrame.style
+styled_table = pivot_df.style.highlight_max(axis=1).format("{:.2f}")
 
-plt.title('CO2 Per Capita Emissions (1950-2018)')
-plt.xlabel('Year')
-plt.ylabel('CO2 Per Capita Emissions')
-
-for country in countries:
-    if country not in pivot_df.columns:
-        continue
-
-    last_value = pivot_df[country].iloc[-1]
-    label = country[:3]
-    x_pos = pivot_df.index[-1]
-    y_pos = last_value
-
-    if country == 'United Kingdom':
-        y_pos -= 0.5
-    elif country == 'South Korea':
-        x_pos -= 2
-        y_pos += 0.3
-    elif country == 'France':
-        x_pos -= 2
-        y_pos -= 0.2
-    elif country == 'Germany':
-        x_pos -= 2
-        y_pos -= 0.2
-
-    plt.text(x_pos, y_pos, label, fontsize=8)
-
-ax.legend(prop={'size': 7})
-st.pyplot(fig)
+# Display the table
+st.write("CO2 Emissions per Capita (2018 vs 1990):")
+st.dataframe(styled_table)
 
 # Drop unnecessary columns
 df = df.drop(['country', 'year', 'iso_code'], axis=1)
