@@ -235,7 +235,7 @@ st.write(vif)
 fig = go.Figure()
 
 # Calculate quantiles
-quantiles = np.linspace(0, 1, len(residuals_norm))
+quantiles = (np.arange(len(residuals_norm)) + 0.5) / len(residuals_norm)
 standard_normal_quantiles = stats.norm.ppf(quantiles)
 
 # Sort residuals and plot
