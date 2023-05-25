@@ -213,18 +213,16 @@ pred_train = slr.predict(X_train)
 residuals = pred_train - y_train
 
 # Scatter plot of predicted vs actual values (test set)
-fig, ax = plt.subplots()
-ax.scatter(pred_test, y_test)
-ax.plot((y_test.min(), y_test.max()), (y_test.min(), y_test.max()))
-st.write("Scatter Plot (Test Set):")
-st.pyplot(fig)
+fig = go.Figure(data=go.Scatter(x=pred_test, y=y_test, mode='markers'))
+fig.add_trace(go.Scatter(x=[y_test.min(), y_test.max()], y=[y_test.min(), y_test.max()], mode='lines', name='Ideal Line'))
+fig.update_layout(title="Scatter Plot (Test Set)", xaxis_title="Predicted Values", yaxis_title="Actual Values")
+st.plotly_chart(fig)
 
 # Scatter plot of residuals vs actual values (train set)
-fig, ax = plt.subplots()
-ax.scatter(y_train, residuals, s=15)
-ax.plot((y_train.min(), y_train.max()), (0, 0), lw=3, color='#0a5798')
-st.write("Scatter Plot (Train Set):")
-st.pyplot(fig)
+fig = go.Figure(data=go.Scatter(x=y_train, y=residuals, mode='markers', marker=dict(size=7)))
+fig.add_shape(type="line", x0=y_train.min(), y0=0, x1=y_train.max(), y1=0, line=dict(color='#0a5798', width=3))
+fig.update_layout(title="Scatter Plot (Train Set)", xaxis_title="Actual Values", yaxis_title="Residuals")
+st.plotly_chart(fig)
 
 # VIF (Variance Inflation Factor)
 X_train_with_constant = sm.add_constant(X_train)
@@ -236,18 +234,14 @@ st.write(vif)
 
 # Probability plot of standardized residuals
 residuals_norm = (residuals - residuals.mean()) / residuals.std()
-fig, ax = plt.subplots()
-stats.probplot(residuals_norm, plot=plt)
-st.write("Probability Plot of Residuals:")
-st.pyplot(fig)
+fig = px.probability_plot(residuals_norm, title="Probability Plot of Residuals")
+st.plotly_chart(fig)
 
 # Pairplot of selected columns
 columns = ['co2_per_gdp', 'oil_co2_per_capita', 'cement_co2_per_capita', 'gas_co2_per_capita',
            'co2_including_luc_per_capita', 'co2_per_capita']
-fig = plt.figure(figsize=(8, 8))
-sns.pairplot(df_normalized[columns], height=1.75)
-st.write("Pairplot:")
-st.pyplot(fig)
+fig = px.scatter_matrix(df_normalized[columns], title="Pairplot", dimensions=columns)
+st.plotly_chart(fig)
 
 # Linear regression with log-transformed features
 signif_feats_log = np.log(signif_feats + 1e-8)
