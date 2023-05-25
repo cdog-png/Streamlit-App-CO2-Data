@@ -28,12 +28,6 @@ df = df.dropna(how='any', axis=0)
 st.write("DataFrame with dropped null values:")
 st.write(df.head())
 
-# Step 4: Print unique countries
-unique_countries = df['country'].unique()
-print("Unique countries:")
-for country in unique_countries:
-print(country)
-
 # Step 9: Plot CO2 per capita emissions
 countries = ['China', 'United States', 'United Kingdom', 'Germany', 'Spain', 'India', 'Brazil', 'Russia', 'France', 'Japan', 'South Korea']
 filtered_df = df[(df['country'].isin(countries)) & (df['year'].between(1950, 2018))]
