@@ -53,12 +53,12 @@ for column in chart_data.columns:
     chart.add_trace(go.Scatter(x=chart_data.index, y=chart_data[column], name=column))
 
 chart.update_layout(
-    title='CO2 per capita Emissions (1950-2018)',
     xaxis=dict(title='Year'),
     yaxis=dict(title='CO2 per capita Emissions')
 )
 
 # Display the chart
+st.subheader("CO2 per capita Emissions")
 st.plotly_chart(chart)
 
 # Step 10: Plot top countries
@@ -66,7 +66,7 @@ grouped_data = df.groupby('country')['co2_per_capita'].sum()
 top_20_countries = grouped_data.nlargest(20)
 
 # Create a Streamlit bar chart for top countries
-st.header("Top 20 Countries by CO2 per capita")
+st.subheader("Top 20 Countries by CO2 per capita")
 st.bar_chart(top_20_countries, use_container_width=True)
 
 # Step 11: Create GDP per capita variable
@@ -90,7 +90,7 @@ fig.update_layout(
 )
 
 # Display the graph
-st.title("Relationship between GDP per capita and CO2 emissions (2018)")
+st.subheader("Relationship between GDP per capita and CO2 emissions (2018)")
 st.plotly_chart(fig)
 
 # Step 13: Print unique countries and create continental lists
@@ -132,11 +132,8 @@ filt_df = df[df['country'].isin(continent_countries)]
 
 # Create a Streamlit line chart for CO2 per capita emissions by continent
 pivot_df = filt_df.pivot(index='year', columns='country', values='co2_per_capita')
+st.subheader("CO2 per capita by continent)
 st.line_chart(pivot_df, use_container_width=True)
-
-# Display the modified DataFrame
-st.write("DataFrame for 2018 with continent column:")
-st.write(df_2018)
 
 asia = continents['asia']
 europe = continents['europe']
@@ -144,29 +141,6 @@ north_america = continents['north_america']
 south_america = continents['south_america']
 africa = continents['africa']
 oceania = continents['oceania']
-
-# Step 15: Compute mean share of global oil CO2 emissions by continent (2018)
-if 'continent' in df_2018.columns:
-    co2_by_continent = df_2018.groupby('continent')['share_global_oil_co2'].mean()
-    # Create bar plot
-    fig = plt.figure(figsize=(8, 6))
-    co2_by_continent.plot(kind='bar', color='blue')
-    plt.xlabel('Continent')
-    plt.ylabel('Share of global oil CO2 emissions')
-    plt.title('Mean share of global oil CO2 emissions by continent in 2018')
-    st.image(fig)
-else:
-    st.write("The 'continent' column is not available in the DataFrame.")
-
-
-fig = go.Figure(data=[go.Bar(x=top_20_countries.index, y=top_20_countries.values)])
-fig.update_layout(
-    xaxis_title='Country',
-    yaxis_title='Per capita CO2 emissions in 1990',
-    title='Per capita CO2 emissions by country in 1990',
-    xaxis_tickangle=-45
-)
-st.plotly_chart(fig)
 
 # Step 19: Show relationship between CO2 per capita and GDP per capita in 2018
 fig = px.scatter(df_2018, x='gdp_per_capita', y='co2_per_capita', trendline='ols')
