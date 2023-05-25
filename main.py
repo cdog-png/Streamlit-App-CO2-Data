@@ -148,13 +148,13 @@ df_1990['continent'] = continent
 # Compute mean share of global oil CO2 emissions by continent
 co2_by_continent = df_1990.groupby('continent')['share_global_oil_co2'].mean()
 
-# Create bar plot
+# Step 16: Plot mean CO2 emissions by continent
 fig = plt.figure(figsize=(8, 6))
 co2_by_continent.plot(kind='bar', color='blue')
 plt.xlabel('Continent')
 plt.ylabel('Share of global oil CO2 emissions')
 plt.title('Mean share of global oil CO2 emissions by continent in 1990')
-st.image(fig)
+st.pyplot(fig)
 
 # Step 17: Plot top countries by CO2 emissions
 grouped_data = df_1990.groupby('country')['co2_per_capita'].sum()
@@ -166,7 +166,7 @@ plt.xlabel('Country')
 plt.ylabel('Per capita CO2 emissions in 1990')
 plt.title('Per capita CO2 emissions by country in 1990')
 plt.xticks(rotation=50, fontsize=10)
-st.image(fig)
+st.pyplot(fig)
 
 # Step 18: Show relationship between CO2 per capita and GDP per capita in 1990
 fig = plt.figure(figsize=(8, 6))
@@ -174,7 +174,7 @@ sns.regplot(x=df_1990['gdp_per_capita'], y=df_1990['co2_per_capita'], color='blu
 plt.xlabel('GDP per capita')
 plt.ylabel('CO2 per capita')
 plt.title('Relationship between GDP per capita and CO2 per capita (1990)')
-st.image(fig)
+st.pyplot(fig)
 
 # Step 19: Show relationship between CO2 per capita and GDP per capita in 2018
 fig = plt.figure(figsize=(8, 6))
@@ -182,4 +182,4 @@ sns.regplot(x=df_2018['gdp_per_capita'], y=df_2018['co2_per_capita'], color='blu
 plt.xlabel('GDP per capita')
 plt.ylabel('CO2 per capita')
 plt.title('Relationship between GDP per capita and CO2 per capita (2018)')
-st.image(fig)
+st.pyplot(fig)
