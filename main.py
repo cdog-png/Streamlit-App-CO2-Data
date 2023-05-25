@@ -13,6 +13,8 @@ from sklearn import model_selection, preprocessing
 from sklearn.model_selection import cross_val_predict, cross_val_score, cross_validate
 from sklearn.linear_model import LinearRegression
 from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
+from sklearn.preprocessing import MinMaxScaler
 import matplotlib.pyplot as plt
 import scipy.stats as stats
 import seaborn as sns
