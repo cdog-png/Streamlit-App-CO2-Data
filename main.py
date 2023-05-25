@@ -16,6 +16,9 @@ from statsmodels.stats.outliers_influence import variance_inflation_factor
 st.title("GLOBAL CO2 EMISSION DATA ANALYSIS")
 st.subheader("by Caspar Ibel and Luis Manosas")
 
+df = pd.read_csv('owid-co2-data.csv')
+st.write(df.head())
+
 # Drop nonfloat variables
 df_float = df.drop(['country', 'year', 'iso_code'], axis=1)
 # Create function called to compute VIF
