@@ -14,7 +14,7 @@ import seaborn as sns
 
 
 st.title("GLOBAL CO2 EMISSION DATA ANALYSIS")
-st.subheader("by Caspar Ibel and Luis Banos")
+st.subheader("by Caspar Ibel and Luis Manosas")
 
 # Read the CSV file into a DataFrame
 df = pd.read_csv('owid-co2-data.csv')
