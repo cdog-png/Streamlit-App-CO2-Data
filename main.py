@@ -17,7 +17,7 @@ st.title("GLOBAL CO2 EMISSION DATA ANALYSIS")
 st.subheader("by Caspar Ibel and Luis Banos")
 
 # Read the CSV file into a DataFrame
-df = pd.read_csv(r'/Users/Caspar/Desktop/folder/owid-co2-data.csv')
+df = pd.read_csv(r'/owid-co2-data.csv')
 
 # Display the DataFrame
 st.header("Preview of the Dataset")
