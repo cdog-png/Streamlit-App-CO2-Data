@@ -17,6 +17,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 from sklearn.preprocessing import MinMaxScaler
 from sklearn.ensemble import RandomForestRegressor
+from sklearn.metrics import mean_squared_error
 import matplotlib.pyplot as plt
 import scipy.stats as stats
 import seaborn as sns
