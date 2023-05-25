@@ -37,12 +37,10 @@ pivot_df = filtered_df.pivot(index='year', columns='country', values='co2_per_ca
 
 # Create a Streamlit line chart for CO2 per capita emissions
 st.line_chart(pivot_df, use_container_width=True)
-st.pyplot(plt.gcf())  # Show the line chart in Streamlit
 
 # Step 10: Plot top countries
-grouped_data = df_selected_year.groupby('Country')['CO2 emissions per capita'].sum()
+grouped_data = df.groupby('country')['co2_per_capita'].sum()
 top_20_countries = grouped_data.nlargest(20)
 
 # Create a Streamlit bar chart for top countries
 st.bar_chart(top_20_countries, use_container_width=True)
-st.pyplot(plt.gcf())  # Show the bar chart in Streamlit
