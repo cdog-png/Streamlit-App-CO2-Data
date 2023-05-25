@@ -233,23 +233,6 @@ vif["VIF"] = [variance_inflation_factor(X_train_with_constant.values, i) for i i
 st.write("Variance Inflation Factor (VIF):")
 st.write(vif)
 
-# Generate the probability plot data
-sorted_residuals = np.sort(residuals_norm)
-theoretical_quantiles = np.quantile(residuals_norm, np.linspace(0, 1, len(sorted_residuals)))
-
-# Create the plotly figure
-fig = go.Figure(data=go.Scatter(x=theoretical_quantiles, y=sorted_residuals, mode='markers'))
-
-# Update the layout
-fig.update_layout(
-    title="Probability Plot of Residuals",
-    xaxis_title="Theoretical Quantiles",
-    yaxis_title="Standardized Residuals",
-)
-
-# Display the figure
-st.plotly_chart(fig)
-
 # Pairplot of selected columns
 columns = ['co2_per_gdp', 'oil_co2_per_capita', 'cement_co2_per_capita', 'gas_co2_per_capita',
            'co2_including_luc_per_capita', 'co2_per_capita']
