@@ -152,8 +152,9 @@ fig.update_layout(
 st.plotly_chart(fig)
 
 countries = ['China', 'United States', 'United Kingdom', 'Germany', 'Spain', 'India', 'Brazil', 'Russia', 'France', 'Japan', 'South Korea']
-filtered_df = df[(df['country'].isin(countries)) & (df['year'].between(1950, 2018))]
-pivot_df = filtered_df.pivot(index='year', columns='country', values='co2_per_capita')
+
+filtered_df = df[(df['Country Name'].isin(countries)) & (df['Year'].between(1950, 2018))]
+pivot_df = filtered_df.pivot(index='Year', columns='Country Name', values='CO2 per capita')
 
 fig, ax = plt.subplots(figsize=(12, 8))
 pivot_df.plot(ax=ax)
@@ -164,6 +165,9 @@ plt.xlabel('Year')
 plt.ylabel('CO2 Per Capita Emissions')
 
 for country in countries:
+    if country not in pivot_df.columns:
+        continue
+
     last_value = pivot_df[country].iloc[-1]
     label = country[:3]
     x_pos = pivot_df.index[-1]
