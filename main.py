@@ -131,7 +131,6 @@ asia = continents['asia']
 europe = continents['europe']
 north_america = continents['north_america']
 south_america = continents['south_america']
-africa = continents['africa']
 oceania = continents['oceania']
 
 # Step 19: Show relationship between CO2 per capita and GDP per capita in 2018
