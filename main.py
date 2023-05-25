@@ -54,8 +54,8 @@ for column in chart_data.columns:
 
 chart.update_layout(
     title='CO2 per capita Emissions (1950-2018)',
-    xaxis_title='Year',
-    yaxis_title='CO2 per capita Emissions'
+    xaxis=dict(title='Year'),
+    yaxis=dict(title='CO2 per capita Emissions')
 )
 
 # Display the chart
@@ -80,14 +80,14 @@ fig = go.Figure(data=go.Scatter(
     y=df_2018['co2_per_unit_energy'],
     mode='markers',
     marker=dict(color='blue'),
-    trendline='ols'
+    line=dict(color='blue'),
+    name='Data',
 ))
 
-# Update the layout
 fig.update_layout(
     title='Relationship between GDP per capita and CO2 per unit of energy (2018)',
-    xaxis_title='GDP per capita',
-    yaxis_title='CO2 per unit energy'
+    xaxis=dict(title='GDP per capita'),
+    yaxis=dict(title='CO2 per unit energy')
 )
 
 # Display the graph
