@@ -232,11 +232,24 @@ vif["VIF"] = [variance_inflation_factor(X_train_with_constant.values, i) for i i
 st.write("Variance Inflation Factor (VIF):")
 st.write(vif)
 
-# Probability plot of standardized residuals
-residuals_norm = (residuals - residuals.mean()) / residuals.std()
 fig = go.Figure()
-stats.probplot(residuals_norm, plot=fig)
-fig.update_layout(title="Probability Plot of Residuals")
+
+# Calculate quantiles
+quantiles = np.linspace(0, 1, len(residuals_norm))
+standard_normal_quantiles = stats.norm.ppf(quantiles)
+
+# Sort residuals and plot
+residuals_sorted = np.sort(residuals_norm)
+fig.add_trace(go.Scatter(x=standard_normal_quantiles, y=residuals_sorted, mode='markers'))
+
+# Add a line indicating perfect normal distribution
+fig.add_trace(go.Scatter(x=[-3, 3], y=[-3, 3], mode='lines', name='Perfectly Normal'))
+
+# Set axis labels and title
+fig.update_layout(xaxis_title='Theoretical Quantiles', yaxis_title='Sample Quantiles',
+                  title='Probability Plot of Residuals')
+
+# Show the interactive plot
 st.plotly_chart(fig)
 
 # Pairplot of selected columns
