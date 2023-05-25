@@ -57,15 +57,17 @@ df['gdp_per_capita'] = df['gdp'] / df['population']
 # Step 12: Create df_2018 DataFrame for 2018 data
 df_2018 = df[df['year'] == 2018]
 
-# Plot relationship between GDP per capita and CO2 per unit of energy
-fig = plt.figure(figsize=(8, 6))
-sns.regplot(x=df_2018['gdp_per_capita'], y=df_2018['co2_per_unit_energy'], color='blue')
-plt.xlabel('GDP per capita')
-plt.ylabel('CO2 per unit energy')
-plt.title('Relationship between GDP per capita and CO2 per unit of energy (2018)')
+fig = px.scatter(df_2018, x='gdp_per_capita', y='co2_per_unit_energy', trendline='ols')
 
-# Display the plot using Streamlit
-st.pyplot(fig)
+# Update the layout
+fig.update_layout(
+    title='Relationship between GDP per capita and CO2 per unit of energy (2018)',
+    xaxis_title='GDP per capita',
+    yaxis_title='CO2 per unit energy'
+)
+
+# Display the graph
+st.plotly_chart(fig)
 
 # Step 13: Print unique countries and create continental lists
 unique_countries = df['country'].unique()
