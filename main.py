@@ -29,26 +29,35 @@ st.title("GLOBAL CO2 EMISSION DATA ANALYSIS")
 st.subheader("by Caspar Ibel and Luis Manosas")
 
 df = pd.read_csv('owid-co2-data.csv')
-st.write(df.head())
+st.header("Owid CO2 Initial Dataset")
+st.write(df.head(20))
 
 # Step 3: Drop rows with null values and display info
 df = df.dropna(how='any', axis=0)
 st.write("DataFrame with dropped null values:")
-st.write(df.head())
+st.write(df.head(20))
 
 # Step 9: Plot CO2 per capita emissions
+st.header("CO2 per capita Emission 1950 - 2018")
 countries = ['China', 'United States', 'United Kingdom', 'Germany', 'Spain', 'India', 'Brazil', 'Russia', 'France', 'Japan', 'South Korea']
 filtered_df = df[(df['country'].isin(countries)) & (df['year'].between(1950, 2018))]
 pivot_df = filtered_df.pivot(index='year', columns='country', values='co2_per_capita')
 
 # Create a Streamlit line chart for CO2 per capita emissions
-st.line_chart(pivot_df, use_container_width=True)
+chart = st.line_chart(pivot_df, use_container_width=True)
+
+# Add axis labels
+chart.set_axis_labels('Year', 'CO2 per capita Emissions')
+
+# Show the chart
+st.pyplot(chart)
 
 # Step 10: Plot top countries
 grouped_data = df.groupby('country')['co2_per_capita'].sum()
 top_20_countries = grouped_data.nlargest(20)
 
 # Create a Streamlit bar chart for top countries
+st.header("Top20 Countries by CO2 per capita")
 st.bar_chart(top_20_countries, use_container_width=True)
 
 # Step 11: Create GDP per capita variable
