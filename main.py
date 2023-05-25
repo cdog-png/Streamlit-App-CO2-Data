@@ -104,6 +104,13 @@ st.line_chart(pivot_df, use_container_width=True)
 st.write("DataFrame for 2018 with continent column:")
 st.write(df_2018)
 
+asia = continents['asia']
+europe = continents['europe']
+north_america = continents['north_america']
+south_america = continents['south_america']
+africa = continents['africa']
+oceania = continents['oceania']
+
 # Step 15: Compute mean share of global oil CO2 emissions by continent (2018)
 if 'continent' in df_2018.columns:
     co2_by_continent = df_2018.groupby('continent')['share_global_oil_co2'].mean()
