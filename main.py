@@ -132,7 +132,7 @@ filt_df = df[df['country'].isin(continent_countries)]
 
 # Create a Streamlit line chart for CO2 per capita emissions by continent
 pivot_df = filt_df.pivot(index='year', columns='country', values='co2_per_capita')
-st.subheader("CO2 per capita by continent)
+st.subheader("CO2 per capita by continent")
 st.line_chart(pivot_df, use_container_width=True)
 
 asia = continents['asia']
