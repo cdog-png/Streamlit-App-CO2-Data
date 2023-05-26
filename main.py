@@ -210,8 +210,6 @@ coeffs = list(slr.coef_)
 coeffs.insert(0, slr.intercept_)
 feats = ['intercept'] + list(signif_feats.columns)
 df_coeffs = pd.DataFrame({'Estimated Value': coeffs}, index=feats)
-st.write("Coefficients for most relevant variables:")
-st.write(df_coeffs)
 st.write("Training score:", slr.score(X_train, y_train))
 st.write("Cross-validation score:", cross_val_score(slr, X_train, y_train).mean())
 st.write("Test score:", slr.score(X_test, y_test))
@@ -235,6 +233,18 @@ fig.update_layout(xaxis_title="Actual Values", yaxis_title="Residuals")
 st.subheader("Residuals vs Actual Values")
 st.plotly_chart(fig)
 
+st.write("Coefficients for most relevant variables:")
+st.write(df_coeffs)
+
+# Linear regression with Significant features
+lr2 = LinearRegression()
+lr2.fit(X_train.loc[:, signif_feats.columns], y_train)
+train_score = lr2.score(X_train.loc[:, signif_feats.columns], y_train)
+test_score = lr2.score(X_test.loc[:, signif_feats.columns], y_test)
+st.write("Linear Regression with Significant Features:")
+st.write("Training score:", train_score)
+st.write("Test score:", test_score)
+
 # VIF (Variance Inflation Factor)
 X_train_with_constant = sm.add_constant(X_train)
 vif = pd.DataFrame()
@@ -250,15 +260,6 @@ fig = px.scatter_matrix(df_normalized[columns], title="Pairplot", dimensions=col
 fig.update_layout(width=900, height=900)  # Adjust the width and height as per your preference
 
 st.plotly_chart(fig)
-
-# Linear regression with Significant features
-lr2 = LinearRegression()
-lr2.fit(X_train.loc[:, signif_feats.columns], y_train)
-train_score = lr2.score(X_train.loc[:, signif_feats.columns], y_train)
-test_score = lr2.score(X_test.loc[:, signif_feats.columns], y_test)
-st.write("Linear Regression with Significant Features:")
-st.write("Training score:", train_score)
-st.write("Test score:", test_score)
 
 # Random Forest Regression
 rf = RandomForestRegressor(n_estimators=100, random_state=42)
