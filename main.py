@@ -257,7 +257,7 @@ st.plotly_chart(fig)
 
 # Linear regression with log-transformed features
 lr2 = LinearRegression()
-lr2.fit(X_train.loc[:, signif_feats_log.columns], y_train)
+lr2.fit(X_train.loc[:, signif_feats.columns], y_train)
 train_score = lr2.score(X_train.loc[:, signif_feats.columns], y_train)
 test_score = lr2.score(X_test.loc[:, signif_feats.columns], y_test)
 st.write("Linear Regression with Significant Features:")
