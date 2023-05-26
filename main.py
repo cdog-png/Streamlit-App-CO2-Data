@@ -197,10 +197,6 @@ st.write(df_normalized.describe())
 # Compute correlations
 correlation_list = df_normalized.corrwith(df_normalized['co2_per_capita']).drop('co2_per_capita').sort_values(ascending=True)
 
-# Display correlation list
-st.title("Correlation List CO2 per capita")
-st.write(correlation_list)
-
 # Perform linear regression with significant features
 signif_feats = df_normalized[['co2_per_gdp', 'oil_co2_per_capita', 'cement_co2_per_capita', 'gas_co2_per_capita',
                               'co2_including_luc_per_capita']]
