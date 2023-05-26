@@ -256,13 +256,11 @@ fig.update_layout(width=900, height=900)  # Adjust the width and height as per y
 st.plotly_chart(fig)
 
 # Linear regression with log-transformed features
-signif_feats_log = np.log(signif_feats + 1e-8)
-signif_feats_log = pd.DataFrame(signif_feats_log, columns=signif_feats.columns)
 lr2 = LinearRegression()
 lr2.fit(X_train.loc[:, signif_feats_log.columns], y_train)
-train_score = lr2.score(X_train.loc[:, signif_feats_log.columns], y_train)
-test_score = lr2.score(X_test.loc[:, signif_feats_log.columns], y_test)
-st.write("Linear Regression with Log-Transformed Features:")
+train_score = lr2.score(X_train.loc[:, signif_feats.columns], y_train)
+test_score = lr2.score(X_test.loc[:, signif_feats.columns], y_test)
+st.write("Linear Regression with Significant Features:")
 st.write("Training score:", train_score)
 st.write("Test score:", test_score)
 
