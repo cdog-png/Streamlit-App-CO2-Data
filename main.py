@@ -32,26 +32,10 @@ df = pd.read_csv('owid-co2-data.csv')
 st.title("Owid CO2 Initial Dataset")
 st.write(df.head(20))
 
-# Step 3: Drop rows with VIF > 5
+# Step 3: Drop rows with null values and display info
 df = df.dropna(how='any', axis=0)
 st.title("DataFrame with dropped null values:")
 st.write(df.head(20))
-
-# Step 3.5: Drop rows with null values and display info
-# Calculate VIF
-from statsmodels.stats.outliers_influence import variance_inflation_factor
-# Drop nonfloat variables 
-df_float = df.drop(['country', 'year', 'iso_code'], axis = 1)
-# Create function called to compute VIF
-def calc_VIF(x):
-  vif= pd.DataFrame()
-  vif['variables'] = x.columns
-  vif["VIF"] = [variance_inflation_factor(x.values,i) for i in range(x.shape[1])]
-  return(vif)
-x = df_float.iloc[:,:]
-# Display VIF
-st.title("VIF")
-st.write(calc_VIF(x))
 
 # Step 9: Plot CO2 per capita emissions
 countries = ['China', 'United States', 'United Kingdom', 'Germany', 'Spain', 'India', 'Brazil', 'Russia', 'France', 'Japan', 'South Korea']
