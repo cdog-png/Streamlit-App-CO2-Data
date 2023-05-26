@@ -60,42 +60,19 @@ chart.update_layout(
 st.title("CO2 per capita Emissions")
 st.plotly_chart(chart)
 
-# Step 9.5: Plot aggregate CO2 emissions
-countries = ['China', 'United States', 'United Kingdom', 'Germany', 'Spain', 'India', 'Brazil', 'Russia', 'France', 'Japan', 'South Korea']
-filtered_df = df[(df['country'].isin(countries)) & (df['year'].between(1950, 2018))]
-pivot_df = filtered_df.pivot(index='year', columns='country', values='co2')
-
-# Create a Streamlit line chart for CO2 emissions
-chart_data = pd.DataFrame(pivot_df.values, columns=pivot_df.columns, index=pivot_df.index)
-chart_data.index.name = 'Year'
-chart_data.columns.name = 'Country'
-chart = go.Figure()
-
-for column in chart_data.columns:
-    chart.add_trace(go.Scatter(x=chart_data.index, y=chart_data[column], name=column))
-
-chart.update_layout(
-    xaxis=dict(title='Year'),
-    yaxis=dict(title='CO2 Aggregate Emissions')
-)
-
-# Display the chart
-st.title("CO2 Aggregate Emissions")
-st.plotly_chart(chart)
-
-# Step 12: Create df_2018 DataFrame for 2018 data
-df_2018 = df[df['year'] == 2018]
-
-# Step 10: Plot top countries in 2018
-grouped_data = df_2018.groupby('country')['co2_per_unit_energy'].sum()
+# Step 10: Plot top countries
+grouped_data = df.groupby('country')['co2_per_capita'].sum()
 top_20_countries = grouped_data.nlargest(20)
 
 # Create a Streamlit bar chart for top countries
-st.subheader("Top 20 Countries by CO2 per capita (2018)")
+st.subheader("Top 20 Countries by CO2 per capita")
 st.bar_chart(top_20_countries, use_container_width=True)
 
 # Step 11: Create GDP per capita variable
 df['gdp_per_capita'] = df['gdp'] / df['population']
+
+# Step 12: Create df_2018 DataFrame for 2018 data
+df_2018 = df[df['year'] == 2018]
 
 fig = go.Figure(data=go.Scatter(
     x=df_2018['gdp_per_capita'],
