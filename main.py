@@ -53,7 +53,7 @@ for column in chart_data.columns:
 
 chart.update_layout(
     xaxis=dict(title='Year'),
-    yaxis=dict(title='CO2 per unit energy')
+    yaxis=dict(title='CO2 per capita emissions')
 )
 
 # Display the chart
@@ -89,7 +89,7 @@ fig.update_layout(
 )
 
 # Display the graph
-st.title("Relationship between GDP per per unit energy")
+st.title("Relationship between GDP per capita and CO2 per unit energy")
 st.plotly_chart(fig)
 
 # Step 13: Print unique countries and create continental lists
