@@ -255,7 +255,7 @@ fig.update_layout(width=900, height=900)  # Adjust the width and height as per y
 
 st.plotly_chart(fig)
 
-# Linear regression with log-transformed features
+# Linear regression with Significant features
 lr2 = LinearRegression()
 lr2.fit(X_train.loc[:, signif_feats.columns], y_train)
 train_score = lr2.score(X_train.loc[:, signif_feats.columns], y_train)
