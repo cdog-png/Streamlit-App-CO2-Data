@@ -53,7 +53,7 @@ for column in chart_data.columns:
 
 chart.update_layout(
     xaxis=dict(title='Year'),
-    yaxis=dict(title='CO2 per capita Emissions')
+    yaxis=dict(title='CO2 per unit energy')
 )
 
 # Display the chart
