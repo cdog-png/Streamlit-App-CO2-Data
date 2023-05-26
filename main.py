@@ -89,7 +89,7 @@ fig.update_layout(
 )
 
 # Display the graph
-st.title("Relationship between GDP per capita and CO2 emissions (2018)")
+st.title("Relationship between GDP per per unit energy")
 st.plotly_chart(fig)
 
 # Step 13: Print unique countries and create continental lists
