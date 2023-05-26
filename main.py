@@ -51,7 +51,7 @@ def calc_VIF(x):
 x = df_float.iloc[:,:]
 # Display VIF
 st.title("VIF")
-calc_VIF(x)
+st.write(calc_VIF(x))
 
 # Step 9: Plot CO2 per capita emissions
 countries = ['China', 'United States', 'United Kingdom', 'Germany', 'Spain', 'India', 'Brazil', 'Russia', 'France', 'Japan', 'South Korea']
