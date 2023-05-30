@@ -32,7 +32,17 @@ st.subheader("by Caspar Ibel and Luis Manosas")
 
 df = pd.read_csv('owid-co2-data.csv')
 st.title("Owid CO2 Initial Dataset")
-st.write(df.describe())
+left_column, right_column = st.beta_columns(2)
+
+# Show the output of df.describe() in the left column
+with left_column:
+    st.write("Summary Statistics")
+    st.write(df.describe())
+
+# Show the DataFrame df in the right column
+with right_column:
+    st.write("Raw Data")
+    st.write(df)
 
 # Step 3: Drop rows with null values and display info
 df = df.drop(['co2_including_luc_per_unit_energy', 'consumption_co2', 
