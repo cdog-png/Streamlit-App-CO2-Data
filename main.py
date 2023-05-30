@@ -83,6 +83,8 @@ chart.update_layout(
     xaxis=dict(title='Year'),
     yaxis=dict(title='CO2 per capita emissions'))
 
+st.write('\n')
+st.write('\n')
 st.subheader("2) Visualizations")
 st.header("CO2 per capita Emissions 1950 - 2018")
 st.plotly_chart(chart)
@@ -213,6 +215,8 @@ scaler = MinMaxScaler()
 df_normalized = pd.DataFrame(scaler.fit_transform(df_cleaned), columns=df_cleaned.columns)
 
 # Display Processed Dataset summaries
+st.write('\n')
+st.write('\n')
 st.subheader("3) Data Analysis")
 st.header("Data Processing")
 
