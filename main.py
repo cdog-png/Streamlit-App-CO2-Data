@@ -67,12 +67,11 @@ with right_column:
     st.write(df.head(8))
 
 
-# Step 4: Plot CO2 per capita emissions
+# Step 4: Plot CO2 per capita emissions 1950-2018
 countries = ['China', 'United States', 'United Kingdom', 'Germany', 'Spain', 'India', 'Brazil', 'Russia', 'France', 'Japan', 'South Korea']
 filtered_df = df[(df['country'].isin(countries)) & (df['year'].between(1950, 2018))]
 pivot_df = filtered_df.pivot(index='year', columns='country', values='co2_per_capita')
 
-# Create a Streamlit line chart for CO2 per capita emissions
 chart_data = pd.DataFrame(pivot_df.values, columns=pivot_df.columns, index=pivot_df.index)
 chart_data.index.name = 'Year'
 chart_data.columns.name = 'Country'
@@ -84,24 +83,21 @@ for column in chart_data.columns:
 chart.update_layout(
     xaxis=dict(title='Year'),
     yaxis=dict(title='CO2 per capita emissions')
-)
 
-# Display the chart
-st.title("CO2 per capita Emissions")
+st.write("CO2 per capita Emissions")
 st.plotly_chart(chart)
 
-# Step 10: Plot top countries
+# Step 5: Plot top countries
 grouped_data = df.groupby('country')['co2_per_capita'].sum()
 top_20_countries = grouped_data.nlargest(20)
 
-# Create a Streamlit bar chart for top countries
-st.subheader("Top 20 Countries by CO2 per capita")
+st.write("Top 20 Countries by CO2 per capita")
 st.bar_chart(top_20_countries, use_container_width=True)
 
-# Step 11: Create GDP per capita variable
+# Step 6: Create GDP per capita variable
 df['gdp_per_capita'] = df['gdp'] / df['population']
 
-# Step 12: Create df_2018 DataFrame for 2018 data
+# Step 7: Create df_2018 DataFrame for 2018 data
 df_2018 = df[df['year'] == 2018]
 
 fig = go.Figure(data=go.Scatter(
@@ -118,11 +114,11 @@ fig.update_layout(
     yaxis=dict(title='CO2 per unit energy')
 )
 
-# Display the graph
-st.title("Relationship between GDP per capita and CO2 per unit energy")
+
+st.write("Relationship between GDP per capita and CO2 per unit energy (2018)")
 st.plotly_chart(fig)
 
-# Step 13: Print unique countries and create continental lists
+# Step 8: Print unique countries and create continental lists
 unique_countries = df['country'].unique()
 continents = {
     'asia': ['Afghanistan', 'Bahrain', 'Bangladesh', 'Bhutan', 'Brunei', 'Cambodia', 'China', 'East Timor',
@@ -147,7 +143,7 @@ continents = {
                       'Peru', 'Suriname', 'Uruguay', 'Venezuela']
 }
 
-st.title("CO2 per capita by continent")
+st.write("CO2 per capita by continent")
 continent = st.selectbox('Select a continent', list(continents.keys()))
 continent_countries = continents[continent]
 filt_df = df[df['country'].isin(continent_countries)]
