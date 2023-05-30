@@ -34,12 +34,10 @@ df = pd.read_csv('owid-co2-data.csv')
 st.title("Owid CO2 Initial Dataset")
 left_column, right_column = st.beta_columns(2)
 
-# Show the output of df.describe() in the left column
 with left_column:
     st.write("Summary Statistics")
     st.write(df.describe())
 
-# Show the DataFrame df in the right column
 with right_column:
     st.write("Raw Data")
     st.write(df.head(8))
@@ -55,7 +53,16 @@ df = df.drop(['co2_including_luc_per_unit_energy', 'consumption_co2',
 
 df = df.dropna(how='any', axis=0)
 st.title("DataFrame with dropped null values:")
-st.write(df.describe())
+left_column, right_column = st.beta_columns(2)
+
+with left_column:
+    st.write("Summary Statistics")
+    st.write(df.describe())
+
+with right_column:
+    st.write("Raw Data")
+    st.write(df.head(8))
+
 
 # Step 4: Plot CO2 per capita emissions
 countries = ['China', 'United States', 'United Kingdom', 'Germany', 'Spain', 'India', 'Brazil', 'Russia', 'France', 'Japan', 'South Korea']
