@@ -28,7 +28,6 @@ from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas  # A
 
 #Step 2: Import Dataset and insert text
 st.title("GLOBAL CO2 EMISSION DATA ANALYSIS")
-st.subheader("by Caspar Ibel and Luis Manosas")
 st.write('\n')
 
 df = pd.read_csv('owid-co2-data.csv')
@@ -84,14 +83,15 @@ chart.update_layout(
     xaxis=dict(title='Year'),
     yaxis=dict(title='CO2 per capita emissions'))
 
-st.header("CO2 per capita Emissions")
+st.subheader("2) Visualizations")
+st.header("CO2 per capita Emissions 1950 - 2018")
 st.plotly_chart(chart)
 
 # Step 5: Plot top countries
 grouped_data = df.groupby('country')['co2_per_capita'].sum()
 top_20_countries = grouped_data.nlargest(20)
 
-st.write("Top 20 Countries by CO2 per capita")
+st.header("Top 20 Countries by CO2 per capita")
 st.bar_chart(top_20_countries, use_container_width=True)
 
 # Step 6: Create GDP per capita variable
@@ -113,7 +113,6 @@ fig.update_layout(
     xaxis=dict(title='GDP per capita'),
     yaxis=dict(title='CO2 per unit energy')
 )
-
 
 st.header("Relationship between GDP per capita and CO2 per unit energy (2018)")
 st.plotly_chart(fig)
@@ -143,7 +142,7 @@ continents = {
                       'Peru', 'Suriname', 'Uruguay', 'Venezuela']
 }
 
-st.header("CO2 per capita by continent")
+st.header("Historic CO2 per capita countries by continent")
 continent = st.selectbox('Select a continent', list(continents.keys()))
 continent_countries = continents[continent]
 filt_df = df[df['country'].isin(continent_countries)]
@@ -156,7 +155,7 @@ pivot_df.index = pivot_df.index.astype(str)
 
 st.line_chart(pivot_df, use_container_width=True)
 
-# Step 19: Show relationship between CO2 per capita and GDP per capita in 2018
+# Step 9: Show relationship between CO2 per capita and GDP per capita in 2018
 fig = px.scatter(df_2018, x='gdp_per_capita', y='co2_per_capita', trendline='ols')
 fig.update_layout(
     xaxis_title='GDP per capita',
@@ -167,7 +166,7 @@ st.plotly_chart(fig)
 
 filtered_df = df[(df['country'].isin(countries)) & (df['year'].isin([2018, 1990]))]
 
-# Create separate traces for each year
+# Step 10: CO2 per capita 1990 vs 2018
 traces = []
 for year in [2018, 1990]:
     trace = go.Scatter(
@@ -191,7 +190,7 @@ fig = go.Figure(data=traces, layout=layout)
 st.header("CO2 per capita 1990 vs 2018")
 st.plotly_chart(fig)
 
-# Drop unnecessary columns
+# Step 11: Data Processing
 df = df.drop(['country', 'year', 'iso_code'], axis=1)
 st.write(df.describe())
 
@@ -209,17 +208,24 @@ df_cleaned = df.mask((df < lower_bound) | (df > upper_bound), (Q1 + Q3) / 2, axi
 scaler = StandardScaler()
 df_normalized = pd.DataFrame(scaler.fit_transform(df_cleaned), columns=df_cleaned.columns)
 
-# Display standardized data summary
-st.write("Standardized Data Summary:")
-st.write(df_normalized.describe())
-
 # Normalize data
 scaler = MinMaxScaler()
 df_normalized = pd.DataFrame(scaler.fit_transform(df_cleaned), columns=df_cleaned.columns)
 
-# Display normalized data summary
-st.header("Normalized Data Summary:")
-st.write(df_normalized.describe())
+# Display Processed Dataset summaries
+st.subheader("3) Data Analysis")
+st.header("Data Processing")
+
+left_column, right_column = st.beta_columns(2)
+
+with left_column:
+    st.write("Standardized Data Summary")
+    st.write(df_standardized.describe())
+
+with right_column:
+    st.write("Normalized Data Summary")
+    st.write(df_normalized.describe())
+
 
 # Compute correlations
 correlation_list = df_normalized.corrwith(df_normalized['co2_per_capita']).drop('co2_per_capita').sort_values(ascending=True)
