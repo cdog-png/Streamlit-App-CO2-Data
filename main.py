@@ -238,6 +238,7 @@ slr.fit(X_train, y_train)
 left_column, right_column = st.beta_columns(2)
 
 # First three points in the left column
+st.header("Model 1 - 31 Variables")
 with left_column:
     st.write("Multiple Regression")
     st.write("Target Variable: CO2 per Capita")
