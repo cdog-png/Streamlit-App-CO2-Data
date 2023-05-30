@@ -1,3 +1,4 @@
+#step 1 import applications
 import streamlit as st
 import pandas as pd
 import matplotlib
@@ -25,6 +26,7 @@ from statsmodels.stats.outliers_influence import variance_inflation_factor
 import statsmodels.api as sm
 from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas  # Added FigureCanvas import
 
+#Step 2: Import Dataset and insert text
 st.title("GLOBAL CO2 EMISSION DATA ANALYSIS")
 st.subheader("by Caspar Ibel and Luis Manosas")
 
@@ -37,7 +39,7 @@ df = df.dropna(how='any', axis=0)
 st.title("DataFrame with dropped null values:")
 st.write(df)
 
-# Step 9: Plot CO2 per capita emissions
+# Step 4: Plot CO2 per capita emissions
 countries = ['China', 'United States', 'United Kingdom', 'Germany', 'Spain', 'India', 'Brazil', 'Russia', 'France', 'Japan', 'South Korea']
 filtered_df = df[(df['country'].isin(countries)) & (df['year'].between(1950, 2018))]
 pivot_df = filtered_df.pivot(index='year', columns='country', values='co2_per_capita')
@@ -167,6 +169,7 @@ st.plotly_chart(fig)
 
 # Drop unnecessary columns
 df = df.drop(['country', 'year', 'iso_code'], axis=1)
+st.write(df)
 
 # Calculate quartiles and IQR
 Q1 = df.quantile(0.25)
