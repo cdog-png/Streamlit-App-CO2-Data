@@ -31,7 +31,8 @@ st.title("GLOBAL CO2 EMISSION DATA ANALYSIS")
 st.subheader("by Caspar Ibel and Luis Manosas")
 
 df = pd.read_csv('owid-co2-data.csv')
-st.title("Owid CO2 Initial Dataset")
+st.subheader("1) The Dataset")
+st.write("Initial Dataset")
 left_column, right_column = st.beta_columns(2)
 
 with left_column:
@@ -52,7 +53,7 @@ df = df.drop(['co2_including_luc_per_unit_energy', 'consumption_co2',
 
 
 df = df.dropna(how='any', axis=0)
-st.title("DataFrame with dropped null values:")
+st.write("DataFrame with dropped null values:")
 left_column, right_column = st.beta_columns(2)
 
 with left_column:
