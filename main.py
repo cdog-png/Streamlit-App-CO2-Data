@@ -35,6 +35,14 @@ st.title("Owid CO2 Initial Dataset")
 st.write(df.describe())
 
 # Step 3: Drop rows with null values and display info
+df = df.drop(['co2_including_luc_per_unit_energy', 'consumption_co2', 
+              'consumption_co2_per_capita', 'consumption_co2_per_gdp', 'cumulative_other_co2', 'energy_per_capita', 
+              'energy_per_gdp', 'ghg_excluding_lucf_per_capita', 'ghg_per_capita', 'methane', 'methane_per_capita', 
+              'nitrous_oxide', 'nitrous_oxide_per_capita', 'other_co2_per_capita', 'other_industry_co2', 
+              'share_global_cumulative_other_co2', 'share_global_other_co2', 'total_ghg', 'total_ghg_excluding_lucf', 
+              'trade_co2', 'trade_co2_share', 'primary_energy_consumption'], axis = 1)
+
+
 df = df.dropna(how='any', axis=0)
 st.title("DataFrame with dropped null values:")
 st.write(df.describe())
