@@ -33,7 +33,7 @@ st.write('\n')
 
 df = pd.read_csv('owid-co2-data.csv')
 st.subheader("1) The Dataset")
-st.write("Initial Dataset")
+st.header("Initial Dataset")
 left_column, right_column = st.beta_columns(2)
 
 with left_column:
