@@ -42,7 +42,7 @@ with left_column:
 # Show the DataFrame df in the right column
 with right_column:
     st.write("Raw Data")
-    st.write(df)
+    st.write(df.head(8))
 
 # Step 3: Drop rows with null values and display info
 df = df.drop(['co2_including_luc_per_unit_energy', 'consumption_co2', 
