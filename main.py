@@ -82,7 +82,7 @@ for column in chart_data.columns:
 
 chart.update_layout(
     xaxis=dict(title='Year'),
-    yaxis=dict(title='CO2 per capita emissions')
+    yaxis=dict(title='CO2 per capita emissions'))
 
 st.write("CO2 per capita Emissions")
 st.plotly_chart(chart)
