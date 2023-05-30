@@ -32,12 +32,12 @@ st.subheader("by Caspar Ibel and Luis Manosas")
 
 df = pd.read_csv('owid-co2-data.csv')
 st.title("Owid CO2 Initial Dataset")
-st.write(df)
+st.write(df.describe())
 
 # Step 3: Drop rows with null values and display info
 df = df.dropna(how='any', axis=0)
 st.title("DataFrame with dropped null values:")
-st.write(df)
+st.write(df.describe())
 
 # Step 4: Plot CO2 per capita emissions
 countries = ['China', 'United States', 'United Kingdom', 'Germany', 'Spain', 'India', 'Brazil', 'Russia', 'France', 'Japan', 'South Korea']
