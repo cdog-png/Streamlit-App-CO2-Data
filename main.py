@@ -169,7 +169,7 @@ st.plotly_chart(fig)
 
 # Drop unnecessary columns
 df = df.drop(['country', 'year', 'iso_code'], axis=1)
-st.write(df)
+st.write(df.describe())
 
 # Calculate quartiles and IQR
 Q1 = df.quantile(0.25)
