@@ -29,6 +29,7 @@ from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas  # A
 #Step 2: Import Dataset and insert text
 st.title("GLOBAL CO2 EMISSION DATA ANALYSIS")
 st.subheader("by Caspar Ibel and Luis Manosas")
+st.write('\n')
 
 df = pd.read_csv('owid-co2-data.csv')
 st.subheader("1) The Dataset")
@@ -42,6 +43,7 @@ with left_column:
 with right_column:
     st.write("Raw Data")
     st.write(df.head(8))
+    st.write('\n')
 
 # Step 3: Drop rows with null values and display info
 df = df.drop(['co2_including_luc_per_unit_energy', 'consumption_co2', 
