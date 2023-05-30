@@ -55,7 +55,7 @@ df = df.drop(['co2_including_luc_per_unit_energy', 'consumption_co2',
 
 
 df = df.dropna(how='any', axis=0)
-st.write("DataFrame with dropped null values:")
+st.header("DataFrame with dropped null values:")
 left_column, right_column = st.beta_columns(2)
 
 with left_column:
@@ -84,7 +84,7 @@ chart.update_layout(
     xaxis=dict(title='Year'),
     yaxis=dict(title='CO2 per capita emissions'))
 
-st.write("CO2 per capita Emissions")
+st.header("CO2 per capita Emissions")
 st.plotly_chart(chart)
 
 # Step 5: Plot top countries
@@ -115,7 +115,7 @@ fig.update_layout(
 )
 
 
-st.write("Relationship between GDP per capita and CO2 per unit energy (2018)")
+st.header("Relationship between GDP per capita and CO2 per unit energy (2018)")
 st.plotly_chart(fig)
 
 # Step 8: Print unique countries and create continental lists
@@ -143,7 +143,7 @@ continents = {
                       'Peru', 'Suriname', 'Uruguay', 'Venezuela']
 }
 
-st.write("CO2 per capita by continent")
+st.header("CO2 per capita by continent")
 continent = st.selectbox('Select a continent', list(continents.keys()))
 continent_countries = continents[continent]
 filt_df = df[df['country'].isin(continent_countries)]
@@ -162,7 +162,7 @@ fig.update_layout(
     xaxis_title='GDP per capita',
     yaxis_title='CO2 per capita',
 )
-st.title("Relationship CO2 per capita and GDP per capita in 2018")
+st.header("Relationship CO2 per capita and GDP per capita in 2018")
 st.plotly_chart(fig)
 
 filtered_df = df[(df['country'].isin(countries)) & (df['year'].isin([2018, 1990]))]
@@ -188,7 +188,7 @@ layout = go.Layout(
 fig = go.Figure(data=traces, layout=layout)
 
 # Display the graph
-st.title("CO2 per capita 1990 vs 2018")
+st.header("CO2 per capita 1990 vs 2018")
 st.plotly_chart(fig)
 
 # Drop unnecessary columns
@@ -218,7 +218,7 @@ scaler = MinMaxScaler()
 df_normalized = pd.DataFrame(scaler.fit_transform(df_cleaned), columns=df_cleaned.columns)
 
 # Display normalized data summary
-st.write("Normalized Data Summary:")
+st.header("Normalized Data Summary:")
 st.write(df_normalized.describe())
 
 # Compute correlations
