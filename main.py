@@ -206,7 +206,7 @@ df_cleaned = df.mask((df < lower_bound) | (df > upper_bound), (Q1 + Q3) / 2, axi
 
 # Standardize data
 scaler = StandardScaler()
-df_normalized = pd.DataFrame(scaler.fit_transform(df_cleaned), columns=df_cleaned.columns)
+df_standardized = pd.DataFrame(scaler.fit_transform(df_cleaned), columns=df_cleaned.columns)
 
 # Normalize data
 scaler = MinMaxScaler()
