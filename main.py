@@ -194,7 +194,6 @@ st.plotly_chart(fig)
 
 # Step 11: Data Processing
 df = df.drop(['country', 'year', 'iso_code'], axis=1)
-st.write(df.describe())
 
 # Calculate quartiles and IQR
 Q1 = df.quantile(0.25)
@@ -231,25 +230,27 @@ with right_column:
     st.write(df_normalized.describe())
 
 
-# Compute correlations
-correlation_list = df_normalized.corrwith(df_normalized['co2_per_capita']).drop('co2_per_capita').sort_values(ascending=True)
-
-# Perform linear regression with significant features
-signif_feats = df_normalized[['co2_per_gdp', 'oil_co2_per_capita', 'cement_co2_per_capita', 'gas_co2_per_capita',
-                              'co2_including_luc_per_capita']]
-
-X_train, X_test, y_train, y_test = train_test_split(signif_feats, df_normalized['co2_per_capita'], test_size=0.2, random_state=789)
+#Step 12: Model 1
+X_train, X_test, y_train, y_test = train_test_split(df_normalized, df_normalized['co2_per_capita'], test_size=0.2, random_state=789)
 slr = LinearRegression()
 slr.fit(X_train, y_train)
 
-# Display coefficients and scores
-coeffs = list(slr.coef_)
-coeffs.insert(0, slr.intercept_)
-feats = ['intercept'] + list(signif_feats.columns)
-df_coeffs = pd.DataFrame({'Estimated Value': coeffs}, index=feats)
-st.write("Training score:", slr.score(X_train, y_train))
-st.write("Cross-validation score:", cross_val_score(slr, X_train, y_train).mean())
-st.write("Test score:", slr.score(X_test, y_test))
+left_column, right_column = st.beta_columns(2)
+
+# First three points in the left column
+with left_column:
+    st.write("Multiple Regression")
+    st.write("Target Variable: CO2 per Capita")
+    st.write("Explanatory variables: df_normalized - 31 variables")
+
+# Second three points in the right column
+with right_column:
+    st.write("Training score:", slr.score(X_train, y_train))
+    st.write("Cross-validation score:", cross_val_score(slr, X_train, y_train).mean())
+    st.write("Test score:", slr.score(X_test, y_test))
+
+#show Correlation list
+correlation_list = df_normalized.corrwith(df_normalized['co2_per_capita']).drop('co2_per_capita').sort_values(ascending=True)
 
 # Predictions and residuals
 pred_test = slr.predict(X_test)
