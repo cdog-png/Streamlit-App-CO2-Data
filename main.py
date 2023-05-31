@@ -252,7 +252,7 @@ with right_column:
     st.write("Test score:", slr.score(X_test, y_test))
 
 # 12.2 Correlation and Coefficient list
-correlation_list = data.corrwith(target).sort_values(ascending=True)
+correlation_list = data.corrwith(target).sort_values(ascending=False)
 coefficient_list = pd.DataFrame({'Variable': data.columns, 'Coefficient': slr.coef_})
 coefficient_list = coefficient_list.sort_values(by='Coefficient', ascending=False)
 
