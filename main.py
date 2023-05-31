@@ -300,17 +300,9 @@ X_train, X_test, y_train, y_test = train_test_split(signif_feats, target, test_s
 slr = LinearRegression()
 slr.fit(X_train, y_train)
 
-left_column, right_column = st.beta_columns(2)
-with left_column:
-    st.write("Multiple Regression")
-    st.write("Target Variable: CO2 per Capita")
-    st.write("Explanatory variables: df_normalized - 31 variables")
-
-# Second three points in the right column
-with right_column:
-    st.write("Training score:", slr.score(X_train, y_train))
-    st.write("Cross-validation score:", cross_val_score(slr, X_train, y_train).mean())
-    st.write("Test score:", slr.score(X_test, y_test))
+st.write("Training score:", slr.score(X_train, y_train))
+st.write("Cross-validation score:", cross_val_score(slr, X_train, y_train).mean())
+st.write("Test score:", slr.score(X_test, y_test))
 
 # VIF (Variance Inflation Factor)
 X_train_with_constant = sm.add_constant(X_train)
@@ -336,7 +328,6 @@ rf = RandomForestRegressor(n_estimators=100, random_state=42)
 rf.fit(X_train, y_train)
 y_pred = rf.predict(X_test)
 mse = mean_squared_error(y_test, y_pred)
-st.write("Random Forest Regression:")
 st.write("Mean Squared Error:", mse)
 
 # Scatter plot of predicted vs actual values (test set) - Random Forest
