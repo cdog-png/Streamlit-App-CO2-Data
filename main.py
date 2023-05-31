@@ -237,10 +237,8 @@ X_train, X_test, y_train, y_test = train_test_split(data, target, test_size=0.2,
 slr = LinearRegression()
 slr.fit(X_train, y_train)
 
-left_column, right_column = st.beta_columns(2)
-
-# First three points in the left column
 st.header("Model 1 - 31 Variables")
+left_column, right_column = st.beta_columns(2)
 with left_column:
     st.write("Multiple Regression")
     st.write("Target Variable: CO2 per Capita")
@@ -280,14 +278,24 @@ st.write(correlation_list)
 signif_feats = ['co2_per_gdp', 'oil_co2_per_capita', 'cement_co2_per_capita', 'gas_co2_per_capita',
            'co2_including_luc_per_capita', 'co2_per_capita']
 
-# Linear regression with Significant features
-lr2 = LinearRegression()
-lr2.fit(X_train.loc[:, signif_feats], y_train)
-train_score = lr2.score(X_train.loc[:, signif_feats.columns], y_train)
-test_score = lr2.score(X_test.loc[:, signif_feats.columns], y_test)
-st.write("Linear Regression with Significant Features:")
-st.write("Training score:", train_score)
-st.write("Test score:", test_score)
+#Step 13: Model 2
+X_train, X_test, y_train, y_test = train_test_split(signif_feats, target, test_size=0.2, random_state=789)
+slr = LinearRegression()
+slr.fit(X_train, y_train)
+
+st.header("Model 2 - 6 most correlated variables")
+
+left_column, right_column = st.beta_columns(2)
+with left_column:
+    st.write("Multiple Regression")
+    st.write("Target Variable: CO2 per Capita")
+    st.write("Explanatory variables: df_normalized - 31 variables")
+
+# Second three points in the right column
+with right_column:
+    st.write("Training score:", slr.score(X_train, y_train))
+    st.write("Cross-validation score:", cross_val_score(slr, X_train, y_train).mean())
+    st.write("Test score:", slr.score(X_test, y_test))
 
 # VIF (Variance Inflation Factor)
 X_train_with_constant = sm.add_constant(X_train)
