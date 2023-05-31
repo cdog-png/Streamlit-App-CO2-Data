@@ -258,7 +258,7 @@ coefficient_list = coefficient_list.sort_values(by='Coefficient', ascending=Fals
 
 # Display the coefficient list as a table without column headers
 st.write("Coefficient list")
-st.write(coefficient_list.to_string(header=False, index=False))
+st.write(coefficient_list)
 
 left_column, right_column = st.beta_columns(2)
 
