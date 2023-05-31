@@ -253,7 +253,7 @@ with right_column:
     st.write("Test score:", slr.score(X_test, y_test))
 
 #show Correlation list
-correlation_list = df_normalized.corrwith(target).sort_values(ascending=True)
+correlation_list = data.corrwith(target).sort_values(ascending=True)
 
 # Predictions and residuals
 pred_test = slr.predict(X_test)
@@ -274,8 +274,11 @@ fig.update_layout(xaxis_title="Actual Values", yaxis_title="Residuals")
 st.subheader("Residuals vs Actual Values")
 st.plotly_chart(fig)
 
-st.write("Coefficients for most relevant variables:")
+st.write("CO2 per capita Correlation list")
 st.write(correlation_list)
+
+signif_feats = ['co2_per_gdp', 'oil_co2_per_capita', 'cement_co2_per_capita', 'gas_co2_per_capita',
+           'co2_including_luc_per_capita', 'co2_per_capita']
 
 # Linear regression with Significant features
 lr2 = LinearRegression()
@@ -293,9 +296,6 @@ vif["Feature"] = X_train_with_constant.columns
 vif["VIF"] = [variance_inflation_factor(X_train_with_constant.values, i) for i in range(X_train_with_constant.shape[1])]
 st.write("Variance Inflation Factor (VIF):")
 st.write(vif)
-
-columns = ['co2_per_gdp', 'oil_co2_per_capita', 'cement_co2_per_capita', 'gas_co2_per_capita',
-           'co2_including_luc_per_capita', 'co2_per_capita']
 
 fig = px.scatter_matrix(df_normalized[columns], title="Pairplot", dimensions=columns)
 fig.update_layout(width=900, height=900)  # Adjust the width and height as per your preference
