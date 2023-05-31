@@ -275,25 +275,18 @@ pred_train = slr.predict(X_train)
 residuals = pred_train - y_train
 
 # Scatter plot of predicted vs actual values (test set)
-fig_pred_actual = go.Figure(data=go.Scatter(x=pred_test, y=y_test, mode='markers'))
-fig_pred_actual.add_trace(go.Scatter(x=[y_test.min(), y_test.max()], y=[y_test.min(), y_test.max()], mode='lines', name='Ideal Line'))
-fig_pred_actual.update_layout(xaxis_title="Predicted Values", yaxis_title="Actual Values")
+fig = go.Figure(data=go.Scatter(x=pred_test, y=y_test, mode='markers'))
+fig.add_trace(go.Scatter(x=[y_test.min(), y_test.max()], y=[y_test.min(), y_test.max()], mode='lines', name='Ideal Line'))
+fig.update_layout(xaxis_title="Predicted Values", yaxis_title="Actual Values")
+st.subheader("Predicted vs Actual Values")
+st.plotly_chart(fig)
 
 # Scatter plot of residuals vs actual values (train set)
-fig_residuals_actual = go.Figure(data=go.Scatter(x=y_train, y=residuals, mode='markers', marker=dict(size=7)))
-fig_residuals_actual.add_shape(type="line", x0=y_train.min(), y0=0, x1=y_train.max(), y1=0, line=dict(color='#0a5798', width=3))
-fig_residuals_actual.update_layout(xaxis_title="Actual Values", yaxis_title="Residuals")
-
-# Display scatter plots side by side
-left_column, right_column = st.beta_columns(2)
-
-with left_column:
-    st.subheader("Predicted vs Actual Values")
-    st.plotly_chart(fig_pred_actual)
-
-with right_column:
-    st.subheader("Residuals vs Actual Values")
-    st.plotly_chart(fig_residuals_actual)
+fig = go.Figure(data=go.Scatter(x=y_train, y=residuals, mode='markers', marker=dict(size=7)))
+fig.add_shape(type="line", x0=y_train.min(), y0=0, x1=y_train.max(), y1=0, line=dict(color='#0a5798', width=3))
+fig.update_layout(xaxis_title="Actual Values", yaxis_title="Residuals")
+st.subheader("Residuals vs Actual Values")
+st.plotly_chart(fig)
 
 signif_feats = df_normalized[['co2_per_gdp', 'oil_co2_per_capita', 'cement_co2_per_capita', 'gas_co2_per_capita','co2_including_luc_per_capita']]
 
