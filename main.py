@@ -251,7 +251,7 @@ with right_column:
     st.write("Cross-validation score:", cross_val_score(slr, X_train, y_train).mean())
     st.write("Test score:", slr.score(X_test, y_test))
 
-#12.2 Correlation and Coefficient list
+# 12.2 Correlation and Coefficient list
 correlation_list = data.corrwith(target).sort_values(ascending=True)
 coefficient_list = pd.DataFrame({'Variable': data.columns, 'Coefficient': slr.coef_})
 coefficient_list = coefficient_list.sort_values(by='Coefficient', ascending=False)
@@ -266,7 +266,7 @@ with left_column:
 # Right column - Coefficient list
 with right_column:
     st.write("Coefficient list")
-    coefficient_list_display = coefficient_list.drop(columns='Variable')
+    coefficient_list_display = coefficient_list[['Variable', 'Coefficient']]
     st.write(coefficient_list_display)
 
 # Predictions and residuals
