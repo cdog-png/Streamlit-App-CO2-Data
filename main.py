@@ -237,6 +237,7 @@ X_train, X_test, y_train, y_test = train_test_split(data, target, test_size=0.2,
 slr = LinearRegression()
 slr.fit(X_train, y_train)
 
+#12.1 Desciptiond and scores
 st.header("Model 1 - 31 Variables")
 left_column, right_column = st.beta_columns(2)
 with left_column:
@@ -250,8 +251,21 @@ with right_column:
     st.write("Cross-validation score:", cross_val_score(slr, X_train, y_train).mean())
     st.write("Test score:", slr.score(X_test, y_test))
 
-#show Correlation list
+#12.2 Correlation and Coefficient list
 correlation_list = data.corrwith(target).sort_values(ascending=True)
+coefficient_list = slr.coef_
+
+left_column, right_column = st.beta_columns(2)
+
+# Left column - Correlation list
+with left_column:
+    st.write("CO2 per capita Correlation list")
+    st.write(correlation_list)
+
+# Right column - Coefficient list
+with right_column:
+    st.write("CO2 per capita Coefficient list")
+    st.write(coefficient_list)
 
 # Predictions and residuals
 pred_test = slr.predict(X_test)
@@ -272,10 +286,7 @@ fig.update_layout(xaxis_title="Actual Values", yaxis_title="Residuals")
 st.subheader("Residuals vs Actual Values")
 st.plotly_chart(fig)
 
-st.write("CO2 per capita Correlation list")
-st.write(correlation_list)
-
-signif_feats = df_normalized[['co2_per_gdp', 'oil_co2_per_capita', 'cement_co2_per_capita', 'gas_co2_per_capita','co2_including_luc_per_capita', 'co2_per_capita']]
+signif_feats = df_normalized[['co2_per_gdp', 'oil_co2_per_capita', 'cement_co2_per_capita', 'gas_co2_per_capita','co2_including_luc_per_capita']]
 
 #Step 13: Model 2
 X_train, X_test, y_train, y_test = train_test_split(signif_feats, target, test_size=0.2, random_state=789)
