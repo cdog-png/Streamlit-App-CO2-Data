@@ -253,7 +253,7 @@ with right_column:
 
 #12.2 Correlation and Coefficient list
 correlation_list = data.corrwith(target).sort_values(ascending=True)
-coefficient_list = slr.coef_
+coefficient_list = pd.DataFrame({'Variable': data.columns, 'Coefficient': slr.coef_}).sort_values(by='Coefficient', ascending=True)
 
 left_column, right_column = st.beta_columns(2)
 
