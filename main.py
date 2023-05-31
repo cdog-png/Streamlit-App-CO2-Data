@@ -240,7 +240,9 @@ slr.fit(X_train, y_train)
 #12.1 Desciptiond and scores
 st.header("Model 1 - 31 Variables")
 st.markdown("---")
-st.write("Multiple Regression Analysi with Target Variabl CO2 per Capita and Explanatory variables: df_normalized - 31 variables")
+st.write("- Multiple Regression Analysis")
+st.write("- Target Variable CO2 per Capita")
+st.write(" - Explanatory variables: df_normalized - 31 variables")
 st.markdown("---")
 
 st.write("Training score:", slr.score(X_train, y_train))
