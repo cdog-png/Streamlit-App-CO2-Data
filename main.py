@@ -275,11 +275,10 @@ st.plotly_chart(fig)
 st.write("CO2 per capita Correlation list")
 st.write(correlation_list)
 
-signif_feats = ['co2_per_gdp', 'oil_co2_per_capita', 'cement_co2_per_capita', 'gas_co2_per_capita',
-           'co2_including_luc_per_capita', 'co2_per_capita']
+signif_feats = df_normalized[['co2_per_gdp', 'oil_co2_per_capita', 'cement_co2_per_capita', 'gas_co2_per_capita','co2_including_luc_per_capita', 'co2_per_capita']]
 
 #Step 13: Model 2
-X_train, X_test, y_train, y_test = train_test_split(signif_feats.values, target, test_size=0.2, random_state=789)
+X_train, X_test, y_train, y_test = train_test_split(signif_feats, target, test_size=0.2, random_state=789)
 slr = LinearRegression()
 slr.fit(X_train, y_train)
 
