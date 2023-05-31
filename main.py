@@ -253,7 +253,8 @@ with right_column:
 
 #12.2 Correlation and Coefficient list
 correlation_list = data.corrwith(target).sort_values(ascending=True)
-coefficient_list = pd.DataFrame({'Variable': data.columns, 'Coefficient': slr.coef_}).sort_values(by='Coefficient', ascending=True)
+coefficient_list = pd.DataFrame({'Variable': data.columns, 'Coefficient': slr.coef_})
+coefficient_list = coefficient_list.sort_values(by='Coefficient', ascending=False)
 
 left_column, right_column = st.beta_columns(2)
 
@@ -264,8 +265,9 @@ with left_column:
 
 # Right column - Coefficient list
 with right_column:
-    st.write("CO2 per capita Coefficient list")
-    st.write(coefficient_list)
+    st.write("Coefficient list")
+    coefficient_list_display = coefficient_list.drop(columns='Variable')
+    st.write(coefficient_list_display)
 
 # Predictions and residuals
 pred_test = slr.predict(X_test)
