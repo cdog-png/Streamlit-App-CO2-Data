@@ -239,15 +239,11 @@ slr.fit(X_train, y_train)
 
 #12.1 Desciptiond and scores
 st.header("Model 1 - 31 Variables")
-left_column, right_column = st.beta_columns(2)
-with left_column:
-    st.divider("Multiple Regression Analysi with Target Variabl CO2 per Capita and Explanatory variables: df_normalized - 31 variables")
+st.divider("Multiple Regression Analysi with Target Variabl CO2 per Capita and Explanatory variables: df_normalized - 31 variables")
 
-# Second three points in the right column
-with right_column:
-    st.write("Training score:", slr.score(X_train, y_train))
-    st.write("Cross-validation score:", cross_val_score(slr, X_train, y_train).mean())
-    st.write("Test score:", slr.score(X_test, y_test))
+ st.write("Training score:", slr.score(X_train, y_train))
+ st.write("Cross-validation score:", cross_val_score(slr, X_train, y_train).mean())
+ st.write("Test score:", slr.score(X_test, y_test))
 
 # 12.2 Correlation and Coefficient list
 correlation_list = data.corrwith(target).sort_values(ascending=False)
