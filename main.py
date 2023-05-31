@@ -232,7 +232,7 @@ with right_column:
 
 #Step 12: Model 1
 target = df_normalized['co2_per_capita']
-data = df_normalized.drop('co2_per_capita')
+data = df_normalized.drop('co2_per_capita', axis=1)
 X_train, X_test, y_train, y_test = train_test_split(data, target, test_size=0.2, random_state=789)
 slr = LinearRegression()
 slr.fit(X_train, y_train)
