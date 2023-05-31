@@ -239,7 +239,6 @@ slr.fit(X_train, y_train)
 
 #12.1 Desciptiond and scores
 st.header("Model 1 - 31 Variables")
-st.markdown("---")
 st.write("- Multiple Regression Analysis")
 st.write("- Target Variable CO2 per Capita")
 st.write(" - Explanatory variables: df_normalized - 31 variables")
@@ -291,11 +290,15 @@ st.plotly_chart(fig)
 signif_feats = df_normalized[['co2_per_gdp', 'oil_co2_per_capita', 'cement_co2_per_capita', 'gas_co2_per_capita','co2_including_luc_per_capita']]
 
 #Step 13: Model 2
+st.header("Model 2 - 5 Variables")
+st.write("- Multiple Regression Analysis with most correlated variables")
+st.write("- Target Variable CO2 per Capita")
+st.write(" - Explanatory variables: signif_feats - 5 variables")
+st.markdown("---")
+
 X_train, X_test, y_train, y_test = train_test_split(signif_feats, target, test_size=0.2, random_state=789)
 slr = LinearRegression()
 slr.fit(X_train, y_train)
-
-st.header("Model 2 - 6 most correlated variables")
 
 left_column, right_column = st.beta_columns(2)
 with left_column:
@@ -322,7 +325,12 @@ fig.update_layout(width=900, height=900)  # Adjust the width and height as per y
 
 st.plotly_chart(fig)
 
-# Random Forest Regression
+#Step 14: Model 3 - Random Forest Regression
+st.header("Model 3 - Random Forest Regression")
+st.write("- Random Forest Regression")
+st.write("- Target Variable CO2 per Capita")
+st.write(" - Explanatory variables: signif_feats - 5 variables")
+st.markdown("---")
 rf = RandomForestRegressor(n_estimators=100, random_state=42)
 rf.fit(X_train, y_train)
 y_pred = rf.predict(X_test)
