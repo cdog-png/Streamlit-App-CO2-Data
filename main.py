@@ -241,7 +241,7 @@ slr.fit(X_train, y_train)
 st.header("Model 1 - 31 Variables")
 left_column, right_column = st.beta_columns(2)
 with left_column:
-    st.write("Multiple Regression Analysis; Target Variable: CO2 per Capita; Explanatory variables: df_normalized - 31 variables")
+    st.divider("Multiple Regression Analysi with Target Variabl CO2 per Capita and Explanatory variables: df_normalized - 31 variables")
 
 # Second three points in the right column
 with right_column:
