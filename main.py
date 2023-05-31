@@ -275,7 +275,7 @@ st.subheader("Residuals vs Actual Values")
 st.plotly_chart(fig)
 
 st.write("Coefficients for most relevant variables:")
-st.write(df_coeffs)
+st.write(correlation_list)
 
 # Linear regression with Significant features
 lr2 = LinearRegression()
