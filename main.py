@@ -282,7 +282,7 @@ signif_feats = ['co2_per_gdp', 'oil_co2_per_capita', 'cement_co2_per_capita', 'g
 
 # Linear regression with Significant features
 lr2 = LinearRegression()
-lr2.fit(X_train.loc[:, signif_feats.columns], y_train)
+lr2.fit(X_train.loc[:, signif_feats], y_train)
 train_score = lr2.score(X_train.loc[:, signif_feats.columns], y_train)
 test_score = lr2.score(X_test.loc[:, signif_feats.columns], y_test)
 st.write("Linear Regression with Significant Features:")
