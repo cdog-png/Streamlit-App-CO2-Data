@@ -320,7 +320,7 @@ vif["VIF"] = [variance_inflation_factor(X_train_with_constant.values, i) for i i
 st.write("Variance Inflation Factor (VIF):")
 st.write(vif)
 
-fig = px.scatter_matrix(signif_feats), title="Pairplot", dimensions=columns)
+fig = px.scatter_matrix(signif_feats, title="Pairplot", dimensions=columns)
 fig.update_layout(width=900, height=900)  # Adjust the width and height as per your preference
 
 st.plotly_chart(fig)
