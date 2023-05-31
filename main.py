@@ -253,7 +253,7 @@ with right_column:
     st.write("Test score:", slr.score(X_test, y_test))
 
 #show Correlation list
-correlation_list = df_normalized.corrwith(df_normalized['co2_per_capita']).drop('co2_per_capita').sort_values(ascending=True)
+correlation_list = df_normalized.corrwith(target).sort_values(ascending=True)
 
 # Predictions and residuals
 pred_test = slr.predict(X_test)
