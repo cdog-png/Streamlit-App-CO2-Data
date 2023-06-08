@@ -93,7 +93,7 @@ st.plotly_chart(chart)
 grouped_data = df.groupby('country')['co2_per_capita'].sum()
 top_20_countries = grouped_data.nlargest(20)
 
-st.header("Top 20 Countries by CO2 per capita")
+st.header("Top 20 Countries by CO2 per capita (2018)")
 st.bar_chart(top_20_countries, use_container_width=True)
 
 # Step 6: Create GDP per capita variable
